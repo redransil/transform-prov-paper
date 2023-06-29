@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  27 JUN 2023 17:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  28 JUN 2023 18:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -992,43 +992,51 @@ Package gensymb Info: Using \textmu for \micro on input line 34.
 
 Package chemgreek Info: Activating mapping `textgreek' on line 34.
 
-<Fig1_20230626.png, id=16, 1003.75pt x 702.625pt>
+ [1
+
+{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<Fig1_20230626.png, id=25, 1003.75pt x 702.625pt>
 File: Fig1_20230626.png Graphic file (type png)
 <use Fig1_20230626.png>
-Package pdftex.def Info: Fig1_20230626.png  used on input line 68.
+Package pdftex.def Info: Fig1_20230626.png  used on input line 69.
 (pdftex.def)             Requested size: 240.24199pt x 168.16171pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 70.
+(caption)                particular \caption on input line 71.
 See the caption package documentation for explanation.
 
-[1
-
-{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Fig1_
-20230626.png (PNG copy)>]
 
 Package caption Warning: Unused \captionsetup[table] on input line 9.
 See the caption package documentation for explanation.
 
-[2] (./transform-prov-paper.aux)
-Package rerunfilecheck Info: File `transform-prov-paper.out' has not changed.
-(rerunfilecheck)             Checksum: D95ECA45AC23AF7A7A73D830BF78A340;291.
+[2 <./Fig1_20230626.png (PNG copy)>] (./transform-prov-paper.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `transform-prov-paper.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `transform-prov-paper.out':
+(rerunfilecheck)             Before: D95ECA45AC23AF7A7A73D830BF78A340;291
+(rerunfilecheck)             After:  6271A81F5429BD0C7F28869F97CB5C89;911.
  ) 
 Here is how much of TeX's memory you used:
- 14174 strings out of 478994
- 221249 string characters out of 5858183
- 735927 words of memory out of 5000000
- 31456 multiletter control sequences out of 15000+600000
+ 14178 strings out of 478994
+ 221285 string characters out of 5858183
+ 738927 words of memory out of 5000000
+ 31458 multiletter control sequences out of 15000+600000
  404640 words of font info for 31 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 82i,4n,88p,1246b,492s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 82i,4n,88p,1353b,492s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on transform-prov-paper.pdf (2 pages, 287084 bytes).
+Output written on transform-prov-paper.pdf (2 pages, 289774 bytes).
 PDF statistics:
- 42 PDF objects out of 1000 (max. 8388607)
- 34 compressed objects within 1 object stream
- 7 named destinations out of 1000 (max. 500000)
+ 45 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 500000)
  30 words of extra memory for PDF output out of 10000 (max. 10000000)
 
