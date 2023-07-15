@@ -75,19 +75,44 @@ Here we introduce two protocols that together can be used to model end-to-end de
 
 \section{Previous Work}\label{PrevWork}
 
-\subsection{Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs)}\label{did-vc}
+This section does not attempt a comprehensive literature review of relevant projects. Included are brief descriptions of some of the work which inspired our approach, and a brief description of critical differences in design decisions.
 
-DIDs: you do have more control over your key pair
+\subsection{Decentralized Identifiers and Verifiable Credentials}\label{did-vc}
+
+The World Wide Web Consortium (W3C) developed standards for Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs) to allow management of identities and credentials without a centralized registry. Following these standards, a self-sovereign DID may be generated for an individual or organization. The DID controller establishes and signs a DID Document which describes the public keys, authentication and delegation protocols, and endpoints associated with the DID. By separating the DID Document from the controller's key pair, this specification enables a persistent self-sovereign identifier that supports method upgrades and key pair rotation. \cite{w3cDID}
 
 \subsection{IPFS}\label{IPFS}
 Tracing decisions end-to-end requires interoperating between work done by many individuals on many different computers and subsystems. The protocols typically used to communicate between machines, such as TCP and https, operate on the basis of location addressing. Under this design pattern, information does not have a persistent identifier and interoperability typically relies on centralized services maintaining endpoints which resolve to network locations. Users of these services typically do not control their own key pairs, which disintermediates them from their data. While the results of these design decisions on market power and centralization of economic control are widely discussed, their implications for data management are similarly profound. Because users are expected to rely on companies to maintain the integrity of their data and market incentives induce vendors to lock in users, it is difficult for developers to write code that traces data across the boundaries between software subsystems.
 
-The Interplanetary File System (IPFS) is a protocol which allows users to address and deliver content based on the cryptographic hash of that content rather than its location on the network. This design pattern, namely using a content address as a URI rather than a location address, is essential for maintaining interoperability and will therefore be used as the basis for data addressing in this work.
+The Interplanetary File System (IPFS) is a protocol which allows users to address and deliver content based on the cryptographic hash of that content rather than its location on the network \cite{ipfs-paper}. This design pattern, namely using a content address as a URI rather than a location address, is essential for maintaining interoperability and will therefore be used as the basis for data addressing in this work.
 
-\subsection{Symmetric Monoidal Categories}\label{smc}
+\subsection{Wiring Diagrams and Symmetric Monoidal Categories}\label{smc}
+
+Wiring diagrams are computational graphs in which data types are represented by lines and functions are represented by boxes. It has been shown that they can be interpreted rigorously as representations of symmetric monoidal categories (SMCs). \cite{Patterson_2021} 
 
 
+A category is a mathematical structure containing objects as well as directional relationships between objects known as morphisms. Morphisms must compose, meaning that if morphisms $f : A \rightarrow B$ (morphism $f$ is a directional relationship from object $A$ to object $B$) and $g : B \rightarrow C$ both exist in a category then there must also exist $h : A \rightarrow C$ such that $h = f ; g$. A monoidal category is a category with a product operation, ie. $(A \otimes B)$. 
 
+A SMC is a monoidal category with a braiding operation $Braid_{A,B} : A \otimes B \rightarrow B \otimes A$ that is symmetric: $Braid_{A,B};Braid_{B,A}=Identity_{A \otimes B}$. If objects in a category are interpreted as data types and morphisms as functions mapping from one datatype to another, then the product in an SMC can be interpreted as an ordered set of two non-interacting data types. 
+
+Representing data pipelines in transform.storage as wiring diagrams is useful as a way of providing a formal grounding for computational diagrams that behave intuitively. The type structure makes it possible to define which functions are allowed to be composed with other functions, and by anchoring types using content addresses we are able to achieve interoperability between data storage and compute platforms without sacrificing verifiability. However, while types in transform.storage should be interpreted strictly composition should not be. In practice, user functions may not be defined over their entire domain (therefore, using the example from above, $h : A \rightarrow C$ such that $h = f ; g$ might not be defined for all values of type $A$) and may not be deterministic or even formally defined themselves. This means that while pipelines and their component functions are interpreted as morphisms within SMCs, compositionality may be broken when the computation is carried out. 
+
+
+\subsection{Provenance Systems}\label{smc}
+Prov-o, Numbers protocol, ethereum attestations 
+
+\section{Transform.Storage Type Structure}\label{transformtypes}
+
+Here, we describe the type structure and data primitives of transform.storage as of the current protocol version.
+
+\subsection{data}\label{data}
+
+Any data blob is valid in transform.storage. It must be content addressed 
+
+% the bibliography file (below) needs to have the same name as the tex file
+% run typeset .tex file as LaTeX, then typeset .bib file as BibTeX, then twice typeset .tex as LaTeX
+\bibliography{transform-prov-paper}{}
+\bibliographystyle{plain}
 
 \end{multicols}
 \end{document}  

@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{ipfs-paper}
+Juan Benet.
+\newblock Ipfs - content addressed, versioned, p2p file system.
+\newblock {\em arXiv}, 2014.
+
+\bibitem{Patterson_2021}
+Evan Patterson, David~I. Spivak, and Dmitry Vagner.
+\newblock Wiring diagrams as normal forms for computing in symmetric monoidal
+  categories.
+\newblock {\em Electronic Proceedings in Theoretical Computer Science},
+  333:49--64, feb 2021.
+
+\bibitem{w3cDID}
+Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, and
+  Christopher Allen.
+\newblock Decentralized identifiers (dids) v1.0, 2022.
+
+\end{thebibliography}
