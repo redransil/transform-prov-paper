@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  15 JUL 2023 10:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  15 JUL 2023 17:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -869,6 +869,9 @@ LaTeX Warning: Unused global option(s):
 
 (./transform-prov-paper.aux
 
+LaTeX Warning: Label `layeredDataFig1' multiply defined.
+
+
 LaTeX Warning: Label `smc' multiply defined.
 
 )
@@ -998,10 +1001,10 @@ Package chemgreek Info: Activating mapping `textgreek' on line 34.
  [1
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<Fig1_20230626.png, id=45, 1003.75pt x 702.625pt>
-File: Fig1_20230626.png Graphic file (type png)
-<use Fig1_20230626.png>
-Package pdftex.def Info: Fig1_20230626.png  used on input line 69.
+<Fig1_assets_20230715.png, id=49, 1003.75pt x 702.625pt>
+File: Fig1_assets_20230715.png Graphic file (type png)
+<use Fig1_assets_20230715.png>
+Package pdftex.def Info: Fig1_assets_20230715.png  used on input line 69.
 (pdftex.def)             Requested size: 240.24199pt x 168.16171pt.
 
 
@@ -1009,41 +1012,52 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 71.
 See the caption package documentation for explanation.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 94.
+<Fig2_layers_20230715.png, id=52, 901.3675pt x 390.45876pt>
+File: Fig2_layers_20230715.png Graphic file (type png)
+<use Fig2_layers_20230715.png>
+Package pdftex.def Info: Fig2_layers_20230715.png  used on input line 91.
+(pdftex.def)             Requested size: 500.484pt x 216.80249pt.
+[2 <./Fig1_assets_20230715.png (PNG copy)>]
 
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 93.
+See the caption package documentation for explanation.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 105
+.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 94.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 105
+.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [2 <./Fig1_20230626.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 104--104
+)
+Underfull \hbox (badness 10000) in paragraph at lines 115--115
 |[]\OT1/cmr/bx/n/14.4 Transform.Storage Type
  []
 
-(./transform-prov-paper.bbl)
+[3 <./Fig2_layers_20230715.png>] (./transform-prov-paper.bbl)
 
 Package caption Warning: Unused \captionsetup[table] on input line 9.
 See the caption package documentation for explanation.
 
-[3] (./transform-prov-paper.aux)
+[4] (./transform-prov-paper.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `transform-prov-paper.out' has not changed.
-(rerunfilecheck)             Checksum: DA17583529580FA3FA22A3A36A5BE427;1373.
+(rerunfilecheck)             Checksum: 09A204DC0D7E1AFC940C07533AD1A2C9;1510.
  ) 
 Here is how much of TeX's memory you used:
- 14240 strings out of 478994
- 222204 string characters out of 5858183
- 743281 words of memory out of 5000000
- 31493 multiletter control sequences out of 15000+600000
+ 14252 strings out of 478994
+ 222501 string characters out of 5858183
+ 743316 words of memory out of 5000000
+ 31502 multiletter control sequences out of 15000+600000
  407698 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 82i,4n,88p,1353b,522s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 82i,4n,88p,1353b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
@@ -1051,10 +1065,10 @@ usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
 r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
 /local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/l
 ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on transform-prov-paper.pdf (3 pages, 342806 bytes).
+Output written on transform-prov-paper.pdf (4 pages, 446224 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
- 80 compressed objects within 1 object stream
- 16 named destinations out of 1000 (max. 500000)
- 70 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 107 PDF objects out of 1000 (max. 8388607)
+ 90 compressed objects within 1 object stream
+ 19 named destinations out of 1000 (max. 500000)
+ 83 words of extra memory for PDF output out of 10000 (max. 10000000)
 

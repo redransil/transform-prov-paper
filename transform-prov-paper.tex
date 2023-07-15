@@ -66,9 +66,9 @@ There is a need to establish the end-to-end reasoning behind data driven decisio
 Here we introduce two protocols that together can be used to model end-to-end decisions as modular compute pipelines, reproduce their results if sufficient information is revealed, establish trust relative to norms determined by user communities, and allow subsequent users to reuse or extend these pipelines without sacrificing verifiability. These protocols model compute pipelines in three layers as shown in figure \ref{layeredDataFig1}. The first protocol, Transform.Storage, represents functions as modular, directional relationships between data types. At the Data layer, this defines pipelines as typed datasets on a two-dimensional grid along with functional maps between them. At the Function layer, Transform.Storage represents function definitions coupled with input and output types. The correspondence between these layers is determined by the types of Data on the lower level and the input and output types of Functions at the middle level. The second protocol, the Provenance Protocol, can be used to apply provenance information to data, functions and pipelines and defining bounded trust in each relative to community norms. While the two protocols can be used separately, together they can be used to automatically map the flow of trust evaluated relative to a given Provenance community.
 
 \begin{center}
-\includegraphics[width=1\columnwidth]{Fig1_20230626}
+\includegraphics[width=1\columnwidth]{Fig1_assets_20230715}
 \begin{flushright}
-\captionof{figure}[Three layers of a compute pipeline]{The three layers of a compute pipeline include underlying data, functions operating on the data, and provenance establishing the origins of the lower two layers. Data types establish a correspondence between the data and function layers, while provenance metadata operating over the lower two layers establishes a flow of trust.}
+\captionof{figure}[Three layers of a compute pipeline]{The three layers of a compute pipeline include underlying data assets, functions operating on those assets, and provenance establishing the origins of the lower two layers. Data types establish a correspondence between the asset and function layers, while provenance metadata operating over the lower two layers establishes a flow of trust.}
 \label{layeredDataFig1}
 \end{flushright}
 \end{center}
@@ -85,6 +85,17 @@ The World Wide Web Consortium (W3C) developed standards for Decentralized Identi
 Tracing decisions end-to-end requires interoperating between work done by many individuals on many different computers and subsystems. The protocols typically used to communicate between machines, such as TCP and https, operate on the basis of location addressing. Under this design pattern, information does not have a persistent identifier and interoperability typically relies on centralized services maintaining endpoints which resolve to network locations. Users of these services typically do not control their own key pairs, which disintermediates them from their data. While the results of these design decisions on market power and centralization of economic control are widely discussed, their implications for data management are similarly profound. Because users are expected to rely on companies to maintain the integrity of their data and market incentives induce vendors to lock in users, it is difficult for developers to write code that traces data across the boundaries between software subsystems.
 
 The Interplanetary File System (IPFS) is a protocol which allows users to address and deliver content based on the cryptographic hash of that content rather than its location on the network \cite{ipfs-paper}. This design pattern, namely using a content address as a URI rather than a location address, is essential for maintaining interoperability and will therefore be used as the basis for data addressing in this work.
+
+\end{multicols}
+\begin{center}
+\includegraphics[width=1\columnwidth]{Fig2_layers_20230715}
+\begin{flushright}
+\captionof{figure}[Simple compute pipeline]{Diagram of a simple compute pipeline consisting of one input asset, one function, and one output asset highlighting relationships between data model components.}
+\label{layeredDataFig1}
+\end{flushright}
+\end{center}
+\begin{multicols}{2}
+
 
 \subsection{Wiring Diagrams and Symmetric Monoidal Categories}\label{smc}
 
@@ -105,9 +116,16 @@ Prov-o, Numbers protocol, ethereum attestations
 
 Here, we describe the type structure and data primitives of transform.storage as of the current protocol version.
 
-\subsection{data}\label{data}
+\subsection{Data}\label{data}
 
-Any data blob is valid in transform.storage. It must be content addressed 
+Any data blob is a valid member of the data layer in transform.storage. It must be content addressed, allowing it to be verified regardless of the system it is stored in.
+
+
+\subsection{Non-Interference}\label{nonInterference}
+
+The type structure outlined here follows the principle of non-interference: \textit{every layer only references layers below it, never above it.} Thus, data never makes assumptions about type, type does not make assumptions about functions, and no lower level makes assumptions about provenance. This is necessary to ensure interoperability: higher levels are always extensible to include new lower-level cases as long as they can be referenced unambiguously through content addressing. 
+
+
 
 % the bibliography file (below) needs to have the same name as the tex file
 % run typeset .tex file as LaTeX, then typeset .bib file as BibTeX, then twice typeset .tex as LaTeX
