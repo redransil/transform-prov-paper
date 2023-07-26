@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  15 JUL 2023 17:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  26 JUL 2023 12:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -863,6 +863,339 @@ Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 \WF@everypar=\toks27
 Package: wrapfig 2003/01/31  v 3.6
 )
+(/usr/local/texlive/2021/texmf-dist/tex/latex/objectz/oz.sty
+Package: oz 1999/05/24 2.46 Object Z macros
+
+`Object-Z Macros' 2.46 <1999/05/24>
+\c@mv@oz=\count304
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `oz'
+(Font)                  OT1/cmr/m/n --> OT1/cmr/m/n on input line 71.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `oz'
+(Font)                  OT1/cmr/bx/n --> OT1/cmr/bx/n on input line 71.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `oz'
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 71.
+\symitalics=\mathgroup6
+LaTeX Font Info:    Redeclaring math alphabet \mathrm on input line 71.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 71.
+\symlasy=\mathgroup7
+LaTeX Font Info:    Redeclaring symbol font `AMSa' on input line 71.
+LaTeX Font Info:    Overwriting symbol font `AMSa' in version `normal'
+(Font)                  U/msa/m/n --> U/msa/m/n on input line 71.
+LaTeX Font Info:    Overwriting symbol font `AMSa' in version `bold'
+(Font)                  U/msa/m/n --> U/msa/m/n on input line 71.
+LaTeX Font Info:    Overwriting symbol font `AMSa' in version `oz'
+(Font)                  U/msa/m/n --> U/msa/m/n on input line 71.
+LaTeX Font Info:    Redeclaring symbol font `AMSb' on input line 71.
+LaTeX Font Info:    Overwriting symbol font `AMSb' in version `normal'
+(Font)                  U/msb/m/n --> U/msb/m/n on input line 71.
+LaTeX Font Info:    Overwriting symbol font `AMSb' in version `bold'
+(Font)                  U/msb/m/n --> U/msb/m/n on input line 71.
+LaTeX Font Info:    Overwriting symbol font `AMSb' in version `oz'
+(Font)                  U/msb/m/n --> U/msb/m/n on input line 71.
+\strutbox@=\box98
+\big@size=\dimen193
+LaTeX Font Info:    Redeclaring math symbol \boxdot on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \boxplus on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \boxtimes on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \square on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \blacksquare on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \centerdot on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lozenge on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \blacklozenge on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \circlearrowright on input line 362
+.
+LaTeX Font Info:    Redeclaring math symbol \circlearrowleft on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \leftrightharpoons on input line 36
+2.
+LaTeX Font Info:    Redeclaring math symbol \boxminus on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Vdash on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Vvdash on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \vDash on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \twoheadrightarrow on input line 36
+2.
+LaTeX Font Info:    Redeclaring math symbol \twoheadleftarrow on input line 362
+.
+LaTeX Font Info:    Redeclaring math symbol \leftleftarrows on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \rightrightarrows on input line 362
+.
+LaTeX Font Info:    Redeclaring math symbol \upuparrows on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \downdownarrows on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \upharpoonright on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \downharpoonright on input line 362
+.
+LaTeX Font Info:    Redeclaring math symbol \upharpoonleft on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \downharpoonleft on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \rightarrowtail on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \leftarrowtail on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \leftrightarrows on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \rightleftarrows on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \Lsh on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Rsh on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \rightsquigarrow on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \leftrightsquigarrow on input line 
+362.
+LaTeX Font Info:    Redeclaring math symbol \looparrowleft on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \looparrowright on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \circeq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \succsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gtrsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gtrapprox on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \multimap on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \therefore on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \because on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \doteqdot on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \triangleq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \precsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lesssim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lessapprox on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \eqslantless on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \eqslantgtr on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \curlyeqprec on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \curlyeqsucc on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \preccurlyeq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \leqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \leqslant on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lessgtr on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \backprime on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \risingdotseq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \fallingdotseq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \succcurlyeq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \geqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \geqslant on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gtrless on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \sqsubset on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \sqsupset on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \vartriangleright on input line 362
+.
+LaTeX Font Info:    Redeclaring math symbol \vartriangleleft on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \trianglerighteq on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \trianglelefteq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \bigstar on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \between on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \blacktriangledown on input line 36
+2.
+LaTeX Font Info:    Redeclaring math symbol \blacktriangleright on input line 3
+62.
+LaTeX Font Info:    Redeclaring math symbol \blacktriangleleft on input line 36
+2.
+LaTeX Font Info:    Redeclaring math symbol \vartriangle on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \blacktriangle on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \triangledown on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \eqcirc on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lesseqgtr on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gtreqless on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lesseqqgtr on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gtreqqless on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Rrightarrow on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Lleftarrow on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \veebar on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \barwedge on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \doublebarwedge on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \measuredangle on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \sphericalangle on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \varpropto on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \smallsmile on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \smallfrown on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Subset on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Supset on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Cup on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Cap on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \curlywedge on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \curlyvee on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \leftthreetimes on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \rightthreetimes on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \subseteqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \supseteqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \bumpeq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \Bumpeq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lll on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \ggg on input line 362.
+LaTeX Font Info:    Redeclaring math delimiter \ulcorner on input line 362.
+LaTeX Font Info:    Redeclaring math delimiter \urcorner on input line 362.
+LaTeX Font Info:    Redeclaring math delimiter \llcorner on input line 362.
+LaTeX Font Info:    Redeclaring math delimiter \lrcorner on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \circledS on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \pitchfork on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \dotplus on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \backsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \backsimeq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \complement on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \intercal on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \circledcirc on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \circledast on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \circleddash on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lvertneqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gvertneqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nleq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \ngeq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nless on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \ngtr on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nprec on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nsucc on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lneqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gneqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nleqslant on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \ngeqslant on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lneq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gneq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \npreceq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nsucceq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \precnsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \succnsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lnsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gnsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nleqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \ngeqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \precneqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \succneqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \precnapprox on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \succnapprox on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lnapprox on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gnapprox on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \ncong on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nsubseteqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nsupseteqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \subsetneqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \supsetneqq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \subsetneq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \supsetneq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nsubseteq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nsupseteq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nparallel on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nmid on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nshortmid on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nshortparallel on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nvdash on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nVdash on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nvDash on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nVDash on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \ntrianglerighteq on input line 362
+.
+LaTeX Font Info:    Redeclaring math symbol \ntrianglelefteq on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \ntriangleleft on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \ntriangleright on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nleftarrow on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nrightarrow on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nLeftarrow on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nRightarrow on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \nLeftrightarrow on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \nleftrightarrow on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \divideontimes on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \varnothing on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \mho on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \eth on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \eqsim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \beth on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gimel on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \daleth on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \lessdot on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \gtrdot on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \ltimes on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \rtimes on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \shortmid on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \shortparallel on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \smallsetminus on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \thicksim on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \thickapprox on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \approxeq on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \succapprox on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \precapprox on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \curvearrowleft on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \curvearrowright on input line 362.
+
+LaTeX Font Info:    Redeclaring math symbol \digamma on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \varkappa on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \hslash on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 362.
+LaTeX Font Info:    Redeclaring math symbol \backepsilon on input line 362.
+\z@combox=\box99
+\z@wdcalc=\dimen194
+\z@stackmin=\count305
+\z@stackmax=\count306
+\z@stacktop=\count307
+\@gtempa=\dimen195
+\@gtempa=\dimen196
+\@gtempa=\dimen197
+\@gtempa=\dimen198
+\@gtempa=\dimen199
+\@gtempa=\dimen256
+\@gtempa=\dimen257
+\@gtempa=\dimen258
+\@gtempa=\dimen259
+\@gtempa=\dimen260
+\@gtempa=\dimen261
+\@gtempa=\dimen262
+\@gtempa=\dimen263
+\@gtempa=\dimen264
+\@gtempa=\dimen265
+\@gtempa=\dimen266
+\@gtempa=\dimen267
+\@gtempa=\dimen268
+\@gtempa=\dimen269
+\@gtempa=\dimen270
+\@gtempa=\dimen271
+\@gtempa=\dimen272
+\@gtempa=\dimen273
+\@gtempa=\dimen274
+\@gtempa=\dimen275
+\@gtempa=\dimen276
+\@gtempa=\dimen277
+\@gtempa=\dimen278
+\@gtempa=\dimen279
+\@gtempa=\dimen280
+\@gtempa=\dimen281
+\@gtempa=\dimen282
+\@gtempa=\dimen283
+\@gtempa=\dimen284
+\@gtempa=\dimen285
+\@gtempa=\dimen286
+\@gtempa=\dimen287
+\@gtempa=\dimen288
+\@gtempa=\dimen289
+\@gtempa=\dimen290
+\@gtempa=\dimen291
+\@gtempa=\dimen292
+\@gtempa=\dimen293
+\@gtempa=\dimen294
+\@gtempa=\dimen295
+\@gtempa=\dimen296
+\@gtempa=\dimen297
+\@gtempa=\dimen298
+\@gtempa=\dimen299
+\@gtempa=\dimen300
+\z@curline=\box100
+\z@curindent=\dimen301
+\z@curfield=\box101
+\zedindent=\dimen302
+\zedleftsep=\dimen303
+\zedtab=\dimen304
+\zedbar=\dimen305
+\zedlinethickness=\dimen306
+\zedcornerheight=\dimen307
+\z@cols=\count308
+\zedbaselineskip=\skip70
+\zstrutbox=\box102
+\interzedlinepenalty=\count309
+\preboxpenalty=\count310
+\forcepagepenalty=\count311
+\z@adskip=\skip71
+\z@bdskip=\skip72
+\z@adsskip=\skip73
+\z@bdsskip=\skip74
+\z@temp=\dimen308
+)
 
 LaTeX Warning: Unused global option(s):
     [9pt].
@@ -877,31 +1210,31 @@ LaTeX Warning: Label `smc' multiply defined.
 )
 \openout1 = `transform-prov-paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 34.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 35.
 LaTeX Font Info:    Trying to load font information for LGR+cmr on input line 3
-4.
+5.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/cbfonts-fd/lgrcmr.fd
 File: lgrcmr.fd 2017/07/29 v1.2 Greek European Computer Regular
 )
-LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    ... okay on input line 35.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -939,16 +1272,16 @@ LaTeX Font Info:    ... okay on input line 34.
 
 (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count304
-\scratchdimen=\dimen193
-\scratchbox=\box98
-\nofMPsegments=\count305
-\nofMParguments=\count306
+\scratchcounter=\count312
+\scratchdimen=\dimen309
+\scratchbox=\box103
+\nofMPsegments=\count313
+\nofMParguments=\count314
 \everyMPshowfont=\toks28
-\MPscratchCnt=\count307
-\MPscratchDim=\dimen194
-\MPnumerator=\count308
-\makeMPintoPDFobject=\count309
+\MPscratchCnt=\count315
+\MPscratchDim=\dimen310
+\MPnumerator=\count316
+\makeMPintoPDFobject=\count317
 \everyMPtoPDFconversion=\toks29
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -963,7 +1296,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 34.
+Package hyperref Info: Link coloring OFF on input line 35.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -975,70 +1308,70 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count310
+\c@section@level=\count318
 )
-LaTeX Info: Redefining \ref on input line 34.
-LaTeX Info: Redefining \pageref on input line 34.
-LaTeX Info: Redefining \nameref on input line 34.
+LaTeX Info: Redefining \ref on input line 35.
+LaTeX Info: Redefining \pageref on input line 35.
+LaTeX Info: Redefining \nameref on input line 35.
  (./transform-prov-paper.out) (./transform-prov-paper.out)
 \@outlinefile=\write3
 \openout3 = `transform-prov-paper.out'.
 
-\symgns@font=\mathgroup6
+\symgns@font=\mathgroup8
 LaTeX Font Info:    Overwriting symbol font `gns@font' in version `bold'
-(Font)                  TS1/cmr/m/n --> TS1/cmr/b/n on input line 34.
-Package gensymb Info: Math companion symbols declared on input line 34.
-LaTeX Info: Redefining \degree on input line 34.
-LaTeX Info: Redefining \celsius on input line 34.
+(Font)                  TS1/cmr/m/n --> TS1/cmr/b/n on input line 35.
+Package gensymb Info: Math companion symbols declared on input line 35.
+LaTeX Info: Redefining \degree on input line 35.
+LaTeX Info: Redefining \celsius on input line 35.
 Package gensymb Info: Using text companion symbols for \degree, \celsius and \p
-erthousand on input line 34.
-LaTeX Info: Redefining \ohm on input line 34.
-Package gensymb Info: Using \textohm for \ohm on input line 34.
-Package gensymb Info: Using \textmu for \micro on input line 34.
+erthousand on input line 35.
+LaTeX Info: Redefining \ohm on input line 35.
+Package gensymb Info: Using \textohm for \ohm on input line 35.
+Package gensymb Info: Using \textmu for \micro on input line 35.
 
-Package chemgreek Info: Activating mapping `textgreek' on line 34.
+Package chemgreek Info: Activating mapping `textgreek' on line 35.
 
+<Fig1_assets_20230715.png, id=41, 1003.75pt x 702.625pt>
+File: Fig1_assets_20230715.png Graphic file (type png)
+<use Fig1_assets_20230715.png>
+Package pdftex.def Info: Fig1_assets_20230715.png  used on input line 70.
+(pdftex.def)             Requested size: 240.24199pt x 168.16171pt.
  [1
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<Fig1_assets_20230715.png, id=49, 1003.75pt x 702.625pt>
-File: Fig1_assets_20230715.png Graphic file (type png)
-<use Fig1_assets_20230715.png>
-Package pdftex.def Info: Fig1_assets_20230715.png  used on input line 69.
-(pdftex.def)             Requested size: 240.24199pt x 168.16171pt.
-
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 71.
+(caption)                particular \caption on input line 72.
 See the caption package documentation for explanation.
 
 <Fig2_layers_20230715.png, id=52, 901.3675pt x 390.45876pt>
 File: Fig2_layers_20230715.png Graphic file (type png)
 <use Fig2_layers_20230715.png>
-Package pdftex.def Info: Fig2_layers_20230715.png  used on input line 91.
+Package pdftex.def Info: Fig2_layers_20230715.png  used on input line 92.
 (pdftex.def)             Requested size: 500.484pt x 216.80249pt.
 [2 <./Fig1_assets_20230715.png (PNG copy)>]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 93.
+(caption)                particular \caption on input line 94.
 See the caption package documentation for explanation.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 105
+LaTeX Font Info:    Trying to load font information for U+msa on input line 106
 .
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 105
+LaTeX Font Info:    Trying to load font information for U+msb on input line 106
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 115--115
-|[]\OT1/cmr/bx/n/14.4 Transform.Storage Type
- []
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 10
+6.
 
-[3 <./Fig2_layers_20230715.png>] (./transform-prov-paper.bbl)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+) [3 <./Fig2_layers_20230715.png>] (./transform-prov-paper.bbl)
 
 Package caption Warning: Unused \captionsetup[table] on input line 9.
 See the caption package documentation for explanation.
@@ -1047,28 +1380,35 @@ See the caption package documentation for explanation.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `transform-prov-paper.out' has not changed.
-(rerunfilecheck)             Checksum: 09A204DC0D7E1AFC940C07533AD1A2C9;1510.
+
+Package rerunfilecheck Warning: File `transform-prov-paper.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `transform-prov-paper.out':
+(rerunfilecheck)             Before: 09A204DC0D7E1AFC940C07533AD1A2C9;1510
+(rerunfilecheck)             After:  98E44964F63229D8B73AA3162964BC0A;1507.
  ) 
 Here is how much of TeX's memory you used:
- 14252 strings out of 478994
- 222501 string characters out of 5858183
- 743316 words of memory out of 5000000
- 31502 multiletter control sequences out of 15000+600000
- 407698 words of font info for 43 fonts, out of 8000000 for 9000
+ 14780 strings out of 478994
+ 226637 string characters out of 5858183
+ 746326 words of memory out of 5000000
+ 32003 multiletter control sequences out of 15000+600000
+ 415441 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 82i,4n,88p,1353b,518s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 82i,13n,88p,1359b,593s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
-usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
-r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/l
-ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on transform-prov-paper.pdf (4 pages, 446224 bytes).
+></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><
+/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/
+local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
+ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/loc
+al/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/loca
+l/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb>
+Output written on transform-prov-paper.pdf (4 pages, 450617 bytes).
 PDF statistics:
- 107 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
- 19 named destinations out of 1000 (max. 500000)
+ 112 PDF objects out of 1000 (max. 8388607)
+ 94 compressed objects within 1 object stream
+ 20 named destinations out of 1000 (max. 500000)
  83 words of extra memory for PDF output out of 10000 (max. 10000000)
 
