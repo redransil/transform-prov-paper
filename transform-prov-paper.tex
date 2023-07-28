@@ -27,10 +27,15 @@
 \usepackage{wrapfig}
 \setlength{\parindent}{1cm} % Default is 15pt.
 \usepackage{oz}
+\usepackage{makecell}  
+
+\usepackage[ruled,vlined,linesnumbered,noresetcount]{algorithm2e}
+\SetKwFor{For}{for (}{) }{}
 
 
 % 2 is subsection, 3 is subsubsection
 \setcounter{tocdepth}{3}
+\setlength{\parindent}{.5 cm}
 
 \begin{document}
 \newpage
@@ -87,16 +92,8 @@ Tracing decisions end-to-end requires interoperating between work done by many i
 
 The Interplanetary File System (IPFS) is a protocol which allows users to address and deliver content based on the cryptographic hash of that content rather than its location on the network \cite{ipfs-paper}. This design pattern, namely using a content address as a URI rather than a location address, is essential for maintaining interoperability and will therefore be used as the basis for data addressing in this work.
 
-\end{multicols}
-\begin{center}
-\includegraphics[width=1\columnwidth]{Fig2_layers_20230715}
-\begin{flushright}
-\captionof{figure}[Simple compute pipeline]{Diagram of a simple compute pipeline consisting of one input asset, one function, and one output asset highlighting relationships between data model components.}
-\label{layeredDataFig1}
-\end{flushright}
-\end{center}
-\begin{multicols}{2}
 
+IPLD
 
 \subsection{Wiring Diagrams and Symmetric Monoidal Categories}\label{smc}
 
@@ -107,7 +104,7 @@ A category is a mathematical structure containing objects as well as directional
 
 A SMC is a monoidal category with a braiding operation $Braid_{A,B} : A \otimes B \rightarrow B \otimes A$ that is symmetric: $Braid_{A,B} \zcmp Braid_{B,A}=Identity_{A \otimes B}$. If objects in a category are interpreted as data types and morphisms as functions mapping from one datatype to another, then the product in an SMC can be interpreted as an ordered set of two non-interacting data types. 
 
-Representing data pipelines in transform.storage as wiring diagrams is provides a formal grounding for computational diagrams that behave intuitively. The type structure makes it possible to define which functions are allowed to be composed with other functions, and by anchoring types using content addresses we are able to achieve interoperability between data storage and compute platforms without sacrificing verifiability. However, while types in transform.storage should be interpreted strictly composition should not be. In practice, user functions may not be defined over their entire domain (therefore, using the example from above, $h : A \rightarrow C$ such that $h = f \zcmp g$ might not be defined for all values of type $A$) and may not be deterministic or even formally defined themselves. This means that while pipelines and their component functions are interpreted as morphisms within SMCs, compositionality may be broken when the computation is carried out. 
+Representing data pipelines in transform.storage as wiring diagrams is provides a formal grounding for computational diagrams that behave intuitively. The type structure makes it possible to define which functions are allowed to be composed with other functions, and by anchoring types using content addresses we are able to achieve interoperability between data storage and compute platforms without sacrificing verifiability. Furthermore, \textbf{composition and data provenance together allow a rigorous and automatic assessment of the flow of trust through a compute pipeline.}  However, while types in transform.storage should be interpreted strictly composition should not be. In practice, user functions may not be defined over their entire domain (therefore, using the example from above, $h : A \rightarrow C$ such that $h = f \zcmp g$ might not be defined for all values of type $A$) and may not be deterministic or even formally defined themselves. This means that while pipelines and their component functions are interpreted as morphisms within SMCs, compositionality may be broken when the computation is carried out. 
 
 
 \subsection{Provenance Systems}\label{smc}
@@ -123,7 +120,107 @@ Any data blob is a valid member of the data layer in transform.storage. It must 
 
 \subsection{Type}\label{type}
 
+As in type theory, a Type in Transform.Storage is a collection of terms sharing a defined set of properties. These may be primitive types such as $string$ and $integer$, or more complex constructed types such as that defined by a data schema. If term $a$ is of type $A$, we express this membership as $a:A$. In general, a term may be a member of multiple types.
+
+Types are expressed in Transform.Storage as the CIDs of IPLD objects with the canonical attributes described in Table \ref{typeFields}. Individual implementations may add optional fields.
+
+\begin{flushleft}
+\begin{tabular}{ || p{3cm} | p{5cm} ||}
+\hline			
+\multicolumn{2}{|| l ||}{\textbf{Type Fields}} \\
+\hline
+\makecell[l]{\textbf{cid} \\ \textit{(CID)}} & \makecell[l]{CID of the data defining this \\ type; for example the CID \\of a schema. May be null.}\\
+\hline
+\makecell[l]{\textbf{series} \\ \textit{(array)}} & \makecell[l]{An array of the CIDs of other \\ Types if this a series type. May \\ be null. Must not conflict with \\ Type.cid.} \\
+\hline
+\makecell[l]{\textbf{type\_checking} \\ \textit{(string)}} & \makecell[l]{A value from the Type Checking \\ Table} \\
+\hline
+\makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the \\ creator of this type} \\
+\hline
+\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \\ \textit{Type.creator is} \\ \textit{non-null})} & \makecell[l]{Value from the Identifier Table \\ (section \ref{transformID}) describing the type \\ of identifier associated with the \\ creator field.}
+ \\
+\hline
+\makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
+\hline
+\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which \\ this type is pursuant to, such as \\  ``2.0.0"} \\
+\hline
+\makecell[l]{\textbf{name} \\ \textit{(string, optional)}} & \makecell[l]{Short human-readable label} \\
+\hline
+\makecell[l]{\textbf{description} \\ \textit{(string, optional)}} &\makecell[l]{ Longer human-readable label}  \\
+\hline  
+\end{tabular}
+\end{flushleft}
+ 
+\captionof{table}[Type Fields]{Definitions of the canonical fields describing a Transform.Storage Type.}
+\label{typeFields}
+\setlength{\parindent}{.5 cm}
+
+Membership in a type is defined by the fields $cid$, $series$ and $type\_checking$. If the type is a series type, it is defined as an ordered series of types listed in $series$. Alternatively, if it is a primitive type, then it is defined by the data in $cid$ and the method determined in $type\_checking$. The value of $type\_checking$ can be referenced in the type checking table maintained at the Transform.Storage spec \cite{transformSpec}.
+
+\end{multicols}
+\begin{center}
+\includegraphics[width=1\columnwidth]{fig_types_assets_20230727}
+\captionof{figure}[Types and assets]{Block diagram showing types and assets in Transform.Storage. (a) this type is defined by a schema which is referenced in its Type.cid field. (b) the series type $A \otimes B$ is defined by two other types referenced in its Type.series field. }
+\label{typesAssets}
+\end{center}
+\begin{multicols}{2}
+
+Pseudocode for isTerm, a function to determine whether a given dataset is a term of a given type, is provided in Algorithm \ref{algo_isTerm}. Because type checking for primitive types depends on looking up the function $f_{Check}$ based on $Type.type\_checking$, the protocol can be extended to support new type systems.
+
+     
+\begin{algorithm}[H]
+\caption{\textbf{isTerm} Determine whether data is a term of a given type}
+\label{algo_isTerm}
+\SetKwInOut{Input}{input}
+\Input{CID of a Type $T_{CID}$, CID of Data $D_{CID}$}
+\label{alg:quad}
+    \SetAlgoLined
+$T \gets$ Retrieve $T_{CID}$ content\\
+$D \gets$ Retrieve $D_{CID}$ content\\ 
+\tcc{If this is a series type}
+\eIf{T.series is not null} 
+{
+	\If {Type of D is not array}
+	{
+		\Return False
+	}
+	\For{index i of T.series}{
+    		Run isTerm recursively on T.series[i], D.series[i]\\
+		\If {isTerm returns false}
+		{\Return False}
+  }
+    \tcc{We've checked that each element of D.series matches T.series}
+    \Return True
+    }{
+\tcc{If this is a primitive type}
+    Determine type checking function $f_{check}$ based on T.type\_checking\\
+    \Return $f_{check}(T.CID, D)$
+}
+\end{algorithm}
+
 \subsection{Asset}\label{type}
+
+An asset is a data structure referencing both a type and a term conforming to that type. For example, the asset shown in figure \ref{asset_example} expresses that $a : A$. An asset contains the following canonical fields.
+
+\begin{itemize}
+\item \textbf{name} (str, optional): short human-readable label 
+\item \textbf{description} (str, optional): longer human-readable label 
+\item \textbf{cid} (CID): CID of the \textit{data} referenced by this type. May be null.
+\item \textbf{series} (array): an array of the \textit{CIDs of data} if the type represented by this asset is a series type. May be null. May not conflict with Asset.cid.
+\item \textbf{creator} (optional) (str): the public identifier of the creator of this asset.
+\item \textbf{creator\_id\_format} (str, required if Asset.creator is non-null): value from the Identifier Table (section \ref{transformID}) describing the type of identifier associated with the creator field.
+\item \textbf{protocol\_name} (str): must be ``transform.storage" 
+\item \textbf{protocol\_version} (str): the version of the protocol which this type is pursuant to, such as  ``2.0.0"
+\end{itemize}
+
+\subsection{Transform.Storage Functions}\label{transformFunc}
+
+Any implementation of Transform.Storage must include the following functions relating to the underlying data structures described in this section.
+
+\textbf{isMember : $(Data \otimes Type) \rightarrow Boolean$} returns $True$ if the input value Data is a term of the input value Type, returns $False$ otherwise.
+
+\subsection{Identifier Table}\label{transformID}
+- used to identify a creator
 
 \subsection{Non-Interference}\label{nonInterference}
 The type structure outlined here follows the principle of non-interference: \textit{every layer only references layers below it, never above it.} Thus, data never makes assumptions about type, type does not make assumptions about functions, and no lower level makes assumptions about provenance. This is necessary to ensure interoperability: higher levels are always extensible to include new lower-level cases as long as they can be referenced unambiguously through content addressing. 
@@ -139,6 +236,17 @@ The type structure outlined here follows the principle of non-interference: \tex
 \section{Transform.Storage Pipelines}\label{transformpipes}
 
 
+
+
+
+\end{multicols}
+\begin{center}
+    
+\includegraphics[width=1\columnwidth]{pipeline_layers_20230715}
+\captionof{figure}[Simple compute pipeline]{Diagram of a simple compute pipeline consisting of one input asset, one function, and one output asset highlighting relationships between data model components.}
+\label{simplePipeline}
+\end{center}
+\begin{multicols}{2}
 
 % the bibliography file (below) needs to have the same name as the tex file
 % run typeset .tex file as LaTeX, then typeset .bib file as BibTeX, then twice typeset .tex as LaTeX

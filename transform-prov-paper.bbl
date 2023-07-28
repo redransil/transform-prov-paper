@@ -1,5 +1,9 @@
 \begin{thebibliography}{1}
 
+\bibitem{transformSpec}
+Transform.storage specification, 2023.
+\newblock Available at \url{https://spec.transform.storage}.
+
 \bibitem{ipfs-paper}
 Juan Benet.
 \newblock Ipfs - content addressed, versioned, p2p file system.
