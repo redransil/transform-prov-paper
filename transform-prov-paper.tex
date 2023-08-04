@@ -312,7 +312,35 @@ The protocol includes a set of built-in functions, which correspond to fundament
 \hline
 \makecell[c]{\textbf{execution}} & \makecell[c]{\textbf{fn}} & \makecell[c]{\textbf{Description}}  & \makecell[c]{\textbf{Image}}  \\
 \hline
-\makecell[l]{identity} & \makecell[l]{null} & \makecell[l]{$f(x) = x$}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_id}}  \\
+\makecell[l]{identity} & \makecell[l]{null} & \makecell[c]{$f(x) = x$}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_id}}  \\
+\hline
+\makecell[l]{introduce} & \makecell[l]{CID of an asset} & \makecell[c]{$f(null) = x$ in order to introduce $x$ \\as a constant.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_introduce}}  \\
+\hline
+\makecell[l]{ignore} & \makecell[l]{null} & \makecell[c]{$f(x) = null$ drop $x$ \\from the computational graph.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_ignore}}  \\
+\hline
+\makecell[l]{down} & \makecell[l]{height ($int$)} & \makecell[c]{ $f(D\otimes null... \otimes null) = $ \\ $ null ... \otimes null \otimes D$ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_down}}  \\
+\hline
+\makecell[l]{up} & \makecell[l]{height ($int$)} & \makecell[c]{ $f(null... \otimes null \otimes E) = $ \\ $ E\otimes null ... \otimes null $ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_up}}  \\
+\hline
+\makecell[l]{duplicate down} & \makecell[l]{null} & \makecell[c]{ $f(F\otimes null) = F\otimes F$ \\ Duplicates input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_dupDown}}  \\
+\hline
+\makecell[l]{duplicate up} & \makecell[l]{null} & \makecell[c]{ $f(null \otimes G) = G\otimes G$ \\ Duplicates input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_dupUp}}  \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ || p{3cm} | p{3cm} | p{5.5cm} | p{4.5cm} ||}
+\hline
+\makecell[c]{\textbf{execution cont'd}} & \makecell[c]{\textbf{fn cont'd}} & \makecell[c]{\textbf{Description cont'd}}  & \makecell[c]{\textbf{Image cont'd}}  \\
+\hline
+\makecell[l]{braid} & \makecell[l]{null} & \makecell[c]{ $f(H \otimes I) = I\otimes H$ \\ Switches the order of two inputs.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_braid}}  \\
+\hline
+\makecell[l]{WASM} & \makecell[l]{CID of WASM \\ function} & \makecell[c]{ $f(J) = K$ \\ Runs function on input J to \\ produce output K.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_function}}  \\
+\hline
+\makecell[l]{IPDR} & \makecell[l]{CID of IPDR \\ docker image} & \makecell[c]{ $f(J) = K$ \\ Runs function on input J to \\ produce output K.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_function}}  \\
+\hline
+\makecell[l]{pipeline} & \makecell[l]{CID of a pipeline} & \makecell[c]{ $pipeline(L) = M$ \\ Executes function pipeline on input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_pipeline}}  \\
 \hline
 \end{tabular}
 \end{center}
