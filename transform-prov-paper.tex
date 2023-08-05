@@ -131,7 +131,7 @@ Any data blob is a valid member of the data layer in transform.storage. It must 
 
 As in type theory, a type in Transform.Storage is a collection of terms sharing a defined set of properties. These may be primitive types such as $string$ and $integer$, or more complex constructed types such as that defined by a data schema. If term $a$ is of type $A$, we express this membership as $a:A$. In general, a given dataset may be a term of multiple types.
 
-Types are expressed in Transform.Storage as the CIDs of IPLD objects with the canonical attributes described in Table \ref{typeFields}. Individual implementations may add optional fields.
+Types are expressed in Transform.Storage as either (1) IPLD objects with the canonical attributes described in Table \ref{typeFields}, or (2) logically equivalently, the CIDs of these IPLD objects. Individual implementations may add optional fields.
 
 \begin{flushleft}
 \begin{tabular}{ || p{3cm} | p{4.5cm} ||}
@@ -174,7 +174,7 @@ Any of the following may thus represent a type:
 \end{multicols}
 \begin{center}
 \includegraphics[width=1\columnwidth]{fig_types_assets_20230802}
-\captionof{figure}[Types and assets]{Block diagram showing types and assets in Transform.Storage. Blocks represent CIDs, and arrow labels represent keys of objects. Brackets represent IPLD arrays. (a) This simple type is defined by a schema which is referenced in its Type.cid field. (b) The series type $A \otimes B$ is represented as an array of the CIDs of types $A$ and $B$, and is logically equivalent to the CID of that array. (c) An asset $a : A$. (d) A series asset, showing $[a, b] : A \otimes B$.}
+\captionof{figure}[Types and assets]{Block diagram showing types and assets in Transform.Storage. Blocks represent IPLD objects (or, logically equivalently, CIDs of IPLD objects), and arrow labels represent keys of objects. Brackets represent IPLD arrays. (a) This simple type is defined by a schema which is referenced in its Type.cid field. (b) The series type $A \otimes B$ is represented as an array of the CIDs of types $A$ and $B$, and is logically equivalent to the CID of that array. (c) An asset $a : A$. (d) A series asset, showing $[a, b] : A \otimes B$.}
 \label{typesAssets_fig}
 \end{center}
 \begin{multicols}{2}
@@ -182,12 +182,16 @@ Any of the following may thus represent a type:
 According to the definition given, types may have complex nested structures which mix objects, the CIDs of objects, and the CIDs of arrays. However, types may be represented in a normal form by obeying the following rules recursively:
 
 \begin{itemize}
-\item Represent every Type object as a CID
+\item Expand every CID representing a type object: $CID_A \rightarrow A$
 \item Expand every CID representing an array: $[..., CID_{[A,B,C]}, ...] \rightarrow [..., [A,B,C], ...]$
 \item Promote the contents of every nested array: $ [..., [A,B,C], ...] \rightarrow [..., A,B,C, ...]$
 \end{itemize}
 
-This will result in either a single CID in the case of a simple type, or an array of CIDs in the case of a series type.
+This will result in either a single IPLD object in the case of a simple type, or an array of IPLD objects in the case of a series type.
+
+The $height$ of a type is 1 in the case of a simple type, or the \textit{length of the normal form} of a series type.
+
+The CID of an array of types is logically equivalent to that array, $CID_{A \otimes B} = [CID_A, CID_B]$ as shown in figure \ref{typesAssets_fig}b. The CID of an IPLD object is also logically equivalent to that object, so that $CID_{A \otimes B} = A \otimes B$ and $[CID_A, CID_B] = [A,B]$. Note, however, that  if the schema of Type $C$ defines an array consisting of the schemas of $A$ and $B$, this logical equivalence is broken because the protocol does not assess the contents of type schemas. In this situation, we have $\forall [a,b] \in A\otimes B,  [a,b] \in C$ but $ A\otimes B \neq C$.
 
 \subsection{Asset}\label{asset}
 
@@ -203,16 +207,8 @@ An asset is a data structure asserting that a given dataset is a term of a given
 \makecell[l]{\textbf{template} \\ \textit{(CID or array)}} & \makecell[l]{The CID of the type \\ referenced by this asset, or an \\ array of type CIDs.}\\
 \hline
 \makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the \\ creator of this asset} \\
-\hline
+\hline	
 \makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \\ \textit{Type.creator is} \\ \textit{non-null})} & \makecell[l]{Value from the Identifier \\ Table (section \ref{transformID}) describing \\ the type of identifier \\ associated with the creator \\ field.} \\
-\hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{ || p{3cm} | p{4.5cm} ||}
-\hline			
-\multicolumn{2}{|| l ||}{\textit{Asset Fields cont'd}} \\
 \hline
 \makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
 \hline
@@ -231,12 +227,7 @@ An asset is a data structure asserting that a given dataset is a term of a given
 
 The block diagrams shown in figure \ref{typesAssets_fig} express (c) $a : A$, and (d) $[a, b] : A \otimes B$. 
 
-The type referenced by $Asset.template$ does not need to be in a normal form as described in section \ref{type} and there are many equivalent representations of any given type. However, the data referenced by $Asset.payload$ is more restricted in that payload CIDs are not resolved by the protocol. Thus, if $Asset.payload$ is a CID then the normal form of $Asset.template$ must be a simple type. If $Asset.payload$ is an array then the normal form of $Asset.template$ must be an array with the same number of elements. This is because, while the protocol constrains the structure of types, the contents of data blobs are exogenous to the protocol.
-
-\subsection{Function}\label{function}
-
-A function is an operation mapping from an input type to an output type. Functions themselves have types. If $f$ is a function mapping from type $A$ to type $B$, then $f : A \rightarrow B$ ("$f$ is of type $A$ to $B$). A function in Transform.Storage contains both information about the con-
-
+The type referenced by $Asset.template$ does not need to be in a normal form as described in section \ref{type} and there are many equivalent representations of any given type. However, the data referenced by $Asset.payload$ is
 
 \end{multicols}
 \begin{center}
@@ -245,25 +236,33 @@ A function is an operation mapping from an input type to an output type. Functio
 \label{functions_fig}
 \end{center}
 \begin{multicols}{2}
-
 \setlength{\parindent}{0 cm}
-tent addressed input and output types of that function, the function definition, and the execution environment in which the function was tested. These fields are shown in table \ref{functionFields}
+
+more restricted in that payload CIDs are not resolved by the protocol. Thus, if $Asset.payload$ is a CID then the normal form of $Asset.template$ must be a simple type. If $Asset.payload$ is an array then the normal form of $Asset.template$ must be an array with the same number of elements. This is because, while the protocol constrains the structure of types, the contents of data blobs are exogenous to the protocol.
 \setlength{\parindent}{.5 cm}
+
+\subsection{Function}\label{function}
+A function is an operation mapping from an input type to an output type. Functions themselves have types. If $f$ is a function mapping from type $A$ to type $B$, then $f : A \rightarrow B$ (``$f$ is of type $A$ to $B$"). A function in Transform.Storage contains information about the content addressed input and output types of that function, the function definition, and the execution environment in which the function was tested. These fields are shown in table \ref{functionFields}
+Values for $Function.execution$ and corresponding values for $Function.fn$ are given in the Execution Table (Table \ref{execTable}. The protocol includes a set of built-in functions, which correspond to fundamental operations on a computational graph, as well as the ability to externally define functions.
+
+The height of a function is defined as $Max( Function.in.height, Function.out.height )$.
+
+
 
 \begin{flushleft}
 \begin{tabular}{ || p{3cm} | p{4.5cm} ||}
 \hline			
 \multicolumn{2}{|| l ||}{\textbf{Function Fields}} \\
 \hline
-\makecell[l]{\textbf{fn} \\ \textit{(CID)}} & \makecell[l]{CID of the function definition}\\
+\makecell[l]{\textbf{execution} \\ \textit{(string)}} & \makecell[l]{Value chosen from the \\ execution table. Necessary to \\ interpret the function CID} \\
+\hline
+\makecell[l]{\textbf{fn} \\ \textit{(See Table \ref{execTable})}} & \makecell[l]{Function definition chosen \\ from the Execution Table}\\
 \hline
 \makecell[l]{\textbf{reference} \\ \textit{(string)}} & \makecell[l]{Pointer (CID or URL) to \\ human-readable $fn$ code. Not \\ used in execution.} \\
 \hline
 \makecell[l]{\textbf{in} \\ \textit{(type)}} & \makecell[l]{Input type. May be a CID, \\ an IPLD object or an IPLD \\ array.} \\
 \hline
 \makecell[l]{\textbf{out} \\ \textit{(type)}} & \makecell[l]{Output type. May be a CID, \\ an IPLD object or an IPLD \\ array.} \\
-\hline
-\makecell[l]{\textbf{execution} \\ \textit{(string)}} & \makecell[l]{Value chosen from the \\ execution table. Necessary to \\ interpret the function CID} \\
 \hline
 \end{tabular}
 \end{flushleft}
@@ -284,15 +283,7 @@ tent addressed input and output types of that function, the function definition,
 \makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
 \hline
 \makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol \\ which this type is pursuant \\ to, such as  ``2.0.0"} \\
-\hline
-\end{tabular}
-\end{flushleft}
-
-\begin{flushleft}
-\begin{tabular}{ || p{3cm} | p{4.5cm} ||}
 \hline			
-\multicolumn{2}{|| l ||}{\textit{Function Fields cont'd}} \\
-\hline
 \makecell[l]{\textbf{name} \\ \textit{(string, optional)}} & \makecell[l]{Short human-readable label} \\
 \hline
 \makecell[l]{\textbf{description} \\ \textit{(string, optional)}} &\makecell[l]{ Longer human-readable label}  \\
@@ -304,8 +295,6 @@ tent addressed input and output types of that function, the function definition,
 \setlength{\parindent}{.5 cm}
 \vspace{.25 cm}
 
-The protocol includes a set of built-in functions, which correspond to fundamental operations on a computational graph. 
-
 \end{multicols}
 \begin{center}
 \begin{tabular}{ || p{3cm} | p{3cm} | p{5.5cm} | p{4.5cm} ||}
@@ -314,17 +303,15 @@ The protocol includes a set of built-in functions, which correspond to fundament
 \hline
 \makecell[l]{identity} & \makecell[l]{null} & \makecell[c]{$f(x) = x$}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_id}}  \\
 \hline
-\makecell[l]{introduce} & \makecell[l]{CID of an asset} & \makecell[c]{$f(null) = x$ in order to introduce $x$ \\as a constant.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_introduce}}  \\
+\makecell[l]{introduce} & \makecell[l]{CID of a type} & \makecell[c]{$f(null) = x$ in order to introduce $x$ \\as a constant.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_introduce}}  \\
 \hline
 \makecell[l]{ignore} & \makecell[l]{null} & \makecell[c]{$f(x) = null$ drop $x$ \\from the computational graph.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_ignore}}  \\
 \hline
-\makecell[l]{down} & \makecell[l]{height ($int$)} & \makecell[c]{ $f(D\otimes null... \otimes null) = $ \\ $ null ... \otimes null \otimes D$ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_down}}  \\
+\makecell[l]{down} & \makecell[l]{null} & \makecell[c]{ $f(D\otimes null... \otimes null) = $ \\ $ null ... \otimes null \otimes D$ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_down}}  \\
 \hline
-\makecell[l]{up} & \makecell[l]{height ($int$)} & \makecell[c]{ $f(null... \otimes null \otimes E) = $ \\ $ E\otimes null ... \otimes null $ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_up}}  \\
+\makecell[l]{up} & \makecell[l]{null} & \makecell[c]{ $f(null... \otimes null \otimes E) = $ \\ $ E\otimes null ... \otimes null $ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_up}}  \\
 \hline
 \makecell[l]{duplicate down} & \makecell[l]{null} & \makecell[c]{ $f(F\otimes null) = F\otimes F$ \\ Duplicates input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_dupDown}}  \\
-\hline
-\makecell[l]{duplicate up} & \makecell[l]{null} & \makecell[c]{ $f(null \otimes G) = G\otimes G$ \\ Duplicates input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_dupUp}}  \\
 \hline
 \end{tabular}
 \end{center}
@@ -334,18 +321,20 @@ The protocol includes a set of built-in functions, which correspond to fundament
 \hline
 \makecell[c]{\textbf{execution cont'd}} & \makecell[c]{\textbf{fn cont'd}} & \makecell[c]{\textbf{Description cont'd}}  & \makecell[c]{\textbf{Image cont'd}}  \\
 \hline
+\makecell[l]{duplicate up} & \makecell[l]{null} & \makecell[c]{ $f(null \otimes G) = G\otimes G$ \\ Duplicates input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_dupUp}}  \\
+\hline
 \makecell[l]{braid} & \makecell[l]{null} & \makecell[c]{ $f(H \otimes I) = I\otimes H$ \\ Switches the order of two inputs.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_braid}}  \\
 \hline
-\makecell[l]{WASM} & \makecell[l]{CID of WASM \\ function} & \makecell[c]{ $f(J) = K$ \\ Runs function on input J to \\ produce output K.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_function}}  \\
+\makecell[l]{WASM} & \makecell[l]{CID of WASM \\ function} & \makecell[c]{ $f(J) = K$ \\ Runs function on input J to \\ produce output K. J and/or \\ K may be a series type.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_function}}  \\
 \hline
-\makecell[l]{IPDR} & \makecell[l]{CID of IPDR \\ docker image} & \makecell[c]{ $f(J) = K$ \\ Runs function on input J to \\ produce output K.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_function}}  \\
+\makecell[l]{IPDR} & \makecell[l]{CID of IPDR \\ docker image} & \makecell[c]{ $f(J) = K$ \\ Runs function on input J to \\ produce output K. J and/or \\ K may be a series type.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_function}}  \\
 \hline
 \makecell[l]{pipeline} & \makecell[l]{CID of a pipeline} & \makecell[c]{ $pipeline(L) = M$ \\ Executes function pipeline on input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_pipeline}}  \\
 \hline
 \end{tabular}
 \end{center}
-\captionof{table}[Built in functions]{Functions built in to Transform.Storage, describing fundamental computational graph operations.}
-\label{builtInFunctions}
+\captionof{table}[Execution Table]{Execution Table. The function definition (Table \ref{functionFields} includes $fn$ and $execution$ variables defining functions and how they are interpreted. In the case of functions built in to Transform.Storage such as $identity$ or $introduce$, the $execution$ variable determines the identity of the function parameterized by $fn$. In the case of an externally defined function, $fn$ is a pointer to the function and $execution$ parameterizes the interpretation of this function.}
+\label{execTable}
 \setlength{\parindent}{.5 cm}
 \begin{multicols}{2}
 \vspace{.25 cm}
