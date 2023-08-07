@@ -35,7 +35,7 @@
 \SetKwFor{For}{for (}{) }{end}
 \SetKwFor{lineToEnd}{...}{}{end}
 \SetKwFor{Loop}{Loop}{}{EndLoop}
-\SetKwBlock{stuff}{...}{}
+\SetKwBlock{contIndent}{...}{}
 \let\oldnl\nl% Store \nl in \oldnl
 \newcommand{\nonl}{\renewcommand{\nl}{\let\nl\oldnl}}% Remove line number for one line
 
@@ -119,7 +119,7 @@ Representing data pipelines in transform.storage as wiring diagrams is provides 
 \subsection{Provenance Systems}\label{smc}
 Prov-o, Numbers protocol, ethereum attestations 
 
-\section{Transform.Storage Type Structure}\label{transformtypes}
+\section{Transform.Storage Data Model}\label{transformtypes}
 
 Here, we describe the type structure and data primitives of transform.storage as of the current protocol version.
 
@@ -140,7 +140,7 @@ Types are expressed in Transform.Storage as either (1) IPLD objects with the can
 \hline
 \makecell[l]{\textbf{cid} \\ \textit{(CID)}} & \makecell[l]{CID of the data defining this \\ type; for example the CID \\of a schema. May be null.}\\
 \hline
-\makecell[l]{\textbf{type\_checking} \\ \textit{(string)}} & \makecell[l]{A value from the Type \\ Checking Table} \\
+\makecell[l]{\textbf{type\_checking} \\ \textit{(string)}} & \makecell[l]{A value from the Type \\ Checking Table, specifying \\ the function $f_{check}$} \\
 \hline
 \makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the \\ creator of this type} \\
 \hline
@@ -162,52 +162,88 @@ Types are expressed in Transform.Storage as either (1) IPLD objects with the can
 \setlength{\parindent}{.5 cm}
 \vspace{.25 cm}
 
-Membership in a type is defined by the fields $cid$, and $type\_checking$. A simple type is defined by the data in $cid$ and the method determined in $type\_checking$ (Figure \ref{typesAssets_fig}a). The value of $type\_checking$ can be referenced in the type checking table maintained at the Transform.Storage spec \cite{transformSpec}. Alternatively, a series type is represented as an array of the CIDs of types (Figure \ref{typesAssets_fig}b). 
+The value of $type\_checking$ is cross-referenced with the type checking table maintained at the Transform.Storage spec \cite{transformSpec}, to determine the function $f_{check}$ with the type signature $f_{check}$: $(Type \otimes Data) \rightarrow \{result: Boolean, code: Str\}$. Here, $result$ is true if the input $Data$ is a term of the input $Type$ and false otherwise. The output key $code$ contains an error code, or $null$.
+
+Membership in a type is defined by the fields $cid$, and $type\_checking$. A simple type is defined by the data in $cid$ and the function determined in $type\_checking$ (Figure \ref{typesAssets_fig}a). Alternatively, a series type is represented as an array of the CIDs of types (Figure \ref{typesAssets_fig}b). 
+
+\end{multicols}
+\begin{center}
+\includegraphics[width=1\columnwidth]{fig_types_assets_20230802}
+\captionof{figure}[Types and assets]{Block diagram showing types and assets in Transform.Storage. Blocks represent IPLD objects, (logically equivalently) CIDs of IPLD objects, or CIDs of data blobs and arrow labels represent keys of objects. Brackets represent IPLD arrays. (a) This simple type is defined by a schema which is referenced in its Type.cid field. (b) The series type $A \otimes B$ is represented as an array of the CIDs of types $A$ and $B$, and is logically equivalent to the CID of that array. (c) An asset $a : A$. (d) A series asset, showing $[a, b] : A \otimes B$.}
+\label{typesAssets_fig}
+\end{center}
+\begin{multicols}{2}
 
 Any of the following may thus represent a type:
 \begin{enumerate}
 \item An IPLD object with the fields in table \ref{typeFields}, representing a simple type
 \item An IPLD array in which values are types, representing a series type
-\item The CID of any other type; logically equivalent to that type
+\item The CID of any type; logically equivalent to that type
 \end{enumerate}
 
-\end{multicols}
-\begin{center}
-\includegraphics[width=1\columnwidth]{fig_types_assets_20230802}
-\captionof{figure}[Types and assets]{Block diagram showing types and assets in Transform.Storage. Blocks represent IPLD objects (or, logically equivalently, CIDs of IPLD objects), and arrow labels represent keys of objects. Brackets represent IPLD arrays. (a) This simple type is defined by a schema which is referenced in its Type.cid field. (b) The series type $A \otimes B$ is represented as an array of the CIDs of types $A$ and $B$, and is logically equivalent to the CID of that array. (c) An asset $a : A$. (d) A series asset, showing $[a, b] : A \otimes B$.}
-\label{typesAssets_fig}
-\end{center}
-\begin{multicols}{2}
 
-According to the definition given, types may have complex nested structures which mix objects, the CIDs of objects, and the CIDs of arrays. However, types may be represented in a normal form by obeying the following rules recursively:
+According to the definition given, types may have complex hierarchical structures which mix objects, arrays, the CIDs of objects, and the CIDs of arrays. However, types may be represented in a normal form by obeying the following rules recursively:
 
 \begin{itemize}
-\item Expand every CID representing a type object: $CID_A \rightarrow A$
+\item Expand every type CID: $CID_A \rightarrow A$
 \item Expand every CID representing an array: $[..., CID_{[A,B,C]}, ...] \rightarrow [..., [A,B,C], ...]$
 \item Promote the contents of every nested array: $ [..., [A,B,C], ...] \rightarrow [..., A,B,C, ...]$
 \end{itemize}
 
-This will result in either a single IPLD object in the case of a simple type, or an array of IPLD objects in the case of a series type.
+This will result in either a single IPLD object in the case of a simple type, or an array of IPLD objects in the case of a series type. Pseudocode for normalizeType is given in Algorithm \ref{algo_isSimpleTypeNormalForm}.
 
 The $height$ of a type is 1 in the case of a simple type, or the \textit{length of the normal form} of a series type.
 
-The CID of an array of types is logically equivalent to that array, $CID_{A \otimes B} = [CID_A, CID_B]$ as shown in figure \ref{typesAssets_fig}b. The CID of an IPLD object is also logically equivalent to that object, so that $CID_{A \otimes B} = A \otimes B$ and $[CID_A, CID_B] = [A,B]$. Note, however, that  if the schema of Type $C$ defines an array consisting of the schemas of $A$ and $B$, this logical equivalence is broken because the protocol does not assess the contents of type schemas. In this situation, we have $\forall [a,b] \in A\otimes B,  [a,b] \in C$ but $ A\otimes B \neq C$.
+The CID of an array of types is logically equivalent to that array, $CID_{A \otimes B} = [CID_A, CID_B]$ as shown in figure \ref{typesAssets_fig}b. The CID of an IPLD object is also logically equivalent to that object, so that $CID_{A \otimes B} = A \otimes B$ and $[CID_A, CID_B] = [A,B]$. Note, however, that  if the schema of Type $C$ defines an array consisting of the schemas of $A$ and $B$, this logical equivalence is broken because the protocol does not assess the contents of type schemas. In this situation, we have $\forall [a,b] : A\otimes B,  [a,b] : C$ but $ A\otimes B \neq C$.
+
+Additionally, $True$ and $null$ are simple types. For every data blob $d$, $d : True$. Type $null$ has no terms.
+
+Every implementation of transform.storage must include the function isTerm (Algorithm \ref{algo_isTerm}), which determines whether a data blob is a term of a given type.
 
 \subsection{Asset}\label{asset}
 
 An asset is a data structure asserting that a given dataset is a term of a given type. An asset contains the canonical fields shown in table \ref{assetFields}.
+
+The block diagrams shown in figure \ref{typesAssets_fig} express (c) $a : A$, and (d) $[a, b] : A \otimes B$. 
+
+The type referenced by $Asset.template$ does not need to be in a normal form as described in section \ref{type} and there are many equivalent representations of any given type. However, the data referenced by $Asset.payload$ is more restricted in that payload CIDs are not hierarchically resolved by the protocol. Thus, if $Asset.payload$ is a CID then either the normal form of $Asset.template$ must be a simple type, or the $Asset.payload$ CID must resolve to an array of data elements matching the $Asset.template$ series type. If $Asset.payload$ is an array then the normal form of $Asset.template$ must be an array with the same number of elements, or $Asset.template$ must be a simple type describing an array. Further hierarchical layers of $Asset.payload$ are not resolved. This is because, while the protocol constrains the structure of types, the contents of data blobs are exogenous to the protocol. If this were not the case, and asset payloads were allowed to contain hierarchical structures similar to series types, it would in principle be impossible for the protocol to distinguish the nested 
+
+\end{multicols}
+\begin{center}
+\includegraphics[width=1\columnwidth]{fig_functions}
+\captionof{figure}[Functions]{Block diagram showing functions in Transform.Storage. (a) A function consists of input and output types, as well as a function definition which accepts data conforming to the given input types and returns data conforming to the given output types. (b) A function accepting the series type $A \otimes B$, in which this input type is represented in normal form. (c) A function with the same series input as $b$, where this input is represented in non-normal form.}
+\label{functions_fig}
+\end{center}
+\begin{multicols}{2}
+\setlength{\parindent}{.5 cm}
+
+structure of the payload from any underlying structure of the payload data without constraining the structure of that data. This would violate non-interference (section \Ref{nonInterference})
+\setlength{\parindent}{.5 cm}
+
+Pseudocode for $isValidAsset$, a required function which determines whether or not an asset is valid, is given in Algorithm \ref{algo_isValidAsset}.
+
 
 \begin{flushleft}
 \begin{tabular}{ || p{3cm} | p{4.5cm} ||}
 \hline			
 \multicolumn{2}{|| l ||}{\textbf{Asset Fields}} \\
 \hline
-\makecell[l]{\textbf{payload} \\ \textit{(CID or array)}} & \makecell[l]{The CID of the data \\ referenced by this asset, or an \\ array of data CIDs.}\\
+\makecell[l]{\textbf{payload} \\ \textit{(CID, array, or} \\ \textit{object)}} & \makecell[l]{The CID of the data \\ referenced by this asset, an \\ array of data CIDs, or the \\ raw data represented as an \\ object or array.}\\
 \hline
-\makecell[l]{\textbf{template} \\ \textit{(CID or array)}} & \makecell[l]{The CID of the type \\ referenced by this asset, or an \\ array of type CIDs.}\\
+\makecell[l]{\textbf{template} \\ \textit{(type)}} & \makecell[l]{The transform.storage type \\ referenced by this asset.}\\
 \hline
 \makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the \\ creator of this asset} \\
 \hline	
+\end{tabular}
+\end{flushleft}
+\setlength{\parindent}{.5 cm}
+\vspace{.25 cm}
+
+\begin{flushleft}
+\begin{tabular}{ || p{3cm} | p{4.5cm} ||}
+\hline			
+\multicolumn{2}{|| l ||}{\textbf{Asset Fields cont'd}} \\
+\hline
 \makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \\ \textit{Type.creator is} \\ \textit{non-null})} & \makecell[l]{Value from the Identifier \\ Table (section \ref{transformID}) describing \\ the type of identifier \\ associated with the creator \\ field.} \\
 \hline
 \makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
@@ -225,27 +261,13 @@ An asset is a data structure asserting that a given dataset is a term of a given
 \setlength{\parindent}{.5 cm}
 \vspace{.25 cm}
 
-The block diagrams shown in figure \ref{typesAssets_fig} express (c) $a : A$, and (d) $[a, b] : A \otimes B$. 
-
-The type referenced by $Asset.template$ does not need to be in a normal form as described in section \ref{type} and there are many equivalent representations of any given type. However, the data referenced by $Asset.payload$ is
-
-\end{multicols}
-\begin{center}
-\includegraphics[width=1\columnwidth]{fig_functions}
-\captionof{figure}[Functions]{Block diagram showing functions in Transform.Storage. (a) A function consists of input and output types, as well as a function definition which accepts data conforming to the given input types and returns data conforming to the given output types. (b) The normal form of a function accepting the series type $A \otimes B$. (c) A function with the same series input as $b$, where this input is represented in non-normal form.}
-\label{functions_fig}
-\end{center}
-\begin{multicols}{2}
-\setlength{\parindent}{0 cm}
-
-more restricted in that payload CIDs are not resolved by the protocol. Thus, if $Asset.payload$ is a CID then the normal form of $Asset.template$ must be a simple type. If $Asset.payload$ is an array then the normal form of $Asset.template$ must be an array with the same number of elements. This is because, while the protocol constrains the structure of types, the contents of data blobs are exogenous to the protocol.
-\setlength{\parindent}{.5 cm}
 
 \subsection{Function}\label{function}
-A function is an operation mapping from an input type to an output type. Functions themselves have types. If $f$ is a function mapping from type $A$ to type $B$, then $f : A \rightarrow B$ (``$f$ is of type $A$ to $B$"). A function in Transform.Storage contains information about the content addressed input and output types of that function, the function definition, and the execution environment in which the function was tested. These fields are shown in table \ref{functionFields}
-Values for $Function.execution$ and corresponding values for $Function.fn$ are given in the Execution Table (Table \ref{execTable}. The protocol includes a set of built-in functions, which correspond to fundamental operations on a computational graph, as well as the ability to externally define functions.
+A function is an operation mapping from an input type to an output type. Functions themselves have types. If $f$ is a function mapping from type $A$ to type $B$, then $f : A \rightarrow B$ (``$f$ is of type $A$ to $B$"). A function in Transform.Storage contains information about the content addressed input and output types of that function, the function definition, and the execution environment in which the function was tested. These fields are shown in table \ref{functionFields}.
+Values for $Function.execution$ and corresponding values for $Function.fn$ are given in the Execution Table (Table \ref{execTable}). The protocol includes a set of built-in functions, which correspond to fundamental operations on a computational graph, as well as the ability to externally define functions.
 
 The height of a function is defined as $Max( Function.in.height, Function.out.height )$.
+
 
 
 
@@ -254,23 +276,25 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 \hline			
 \multicolumn{2}{|| l ||}{\textbf{Function Fields}} \\
 \hline
-\makecell[l]{\textbf{execution} \\ \textit{(string)}} & \makecell[l]{Value chosen from the \\ execution table. Necessary to \\ interpret the function CID} \\
+\makecell[l]{\textbf{execution} \\ \textit{(string)}} & \makecell[l]{Value chosen from the \\ execution table. Necessary to \\ interpret fn.} \\
 \hline
-\makecell[l]{\textbf{fn} \\ \textit{(See Table \ref{execTable})}} & \makecell[l]{Function definition chosen \\ from the Execution Table}\\
+\makecell[l]{\textbf{fn} \\ \textit{(See Table \ref{execTable})}} & \makecell[l]{Function definition of type \\ chosen from the Execution \\ Table}\\
 \hline
 \makecell[l]{\textbf{reference} \\ \textit{(string)}} & \makecell[l]{Pointer (CID or URL) to \\ human-readable $fn$ code. Not \\ used in execution.} \\
 \hline
 \makecell[l]{\textbf{in} \\ \textit{(type)}} & \makecell[l]{Input type. May be a CID, \\ an IPLD object or an IPLD \\ array.} \\
 \hline
-\makecell[l]{\textbf{out} \\ \textit{(type)}} & \makecell[l]{Output type. May be a CID, \\ an IPLD object or an IPLD \\ array.} \\
-\hline
 \end{tabular}
 \end{flushleft}
+\setlength{\parindent}{.5 cm}
+\vspace{.25 cm}
 
 \begin{flushleft}
 \begin{tabular}{ || p{3cm} | p{4.5cm} ||}
-\hline			
-\multicolumn{2}{|| l ||}{\textit{Function Fields cont'd}} \\
+\hline	
+\multicolumn{2}{|| l ||}{\textbf{Function Fields cont'd}} \\
+\hline
+\makecell[l]{\textbf{out} \\ \textit{(type)}} & \makecell[l]{Output type. May be a CID, \\ an IPLD object or an IPLD \\ array.} \\
 \hline
 \makecell[l]{\textbf{environment} \\ \textit{(string)}} & \makecell[l]{Compute environment where \\ this function was tested, \\ chosen from the environment \\ table} \\
 \hline
@@ -295,6 +319,8 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 \setlength{\parindent}{.5 cm}
 \vspace{.25 cm}
 
+
+
 \end{multicols}
 \begin{center}
 \begin{tabular}{ || p{3cm} | p{3cm} | p{5.5cm} | p{4.5cm} ||}
@@ -303,15 +329,9 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 \hline
 \makecell[l]{identity} & \makecell[l]{null} & \makecell[c]{$f(x) = x$}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_id}}  \\
 \hline
-\makecell[l]{introduce} & \makecell[l]{CID of a type} & \makecell[c]{$f(null) = x$ in order to introduce $x$ \\as a constant.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_introduce}}  \\
+\vspace{.1 cm} \makecell[l]{introduce} & \vspace{.1 cm} \makecell[l]{CID of a type} & \vspace{0 cm} \makecell[c]{$f(null) = x$ in order to introduce $x$ \\as a constant.}  & \vspace{-0.2 cm} \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_introduce}} \vspace{0 cm} \\
 \hline
-\makecell[l]{ignore} & \makecell[l]{null} & \makecell[c]{$f(x) = null$ drop $x$ \\from the computational graph.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_ignore}}  \\
-\hline
-\makecell[l]{down} & \makecell[l]{null} & \makecell[c]{ $f(D\otimes null... \otimes null) = $ \\ $ null ... \otimes null \otimes D$ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_down}}  \\
-\hline
-\makecell[l]{up} & \makecell[l]{null} & \makecell[c]{ $f(null... \otimes null \otimes E) = $ \\ $ E\otimes null ... \otimes null $ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_up}}  \\
-\hline
-\makecell[l]{duplicate down} & \makecell[l]{null} & \makecell[c]{ $f(F\otimes null) = F\otimes F$ \\ Duplicates input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_dupDown}}  \\
+\vspace{.1 cm}  \makecell[l]{ignore} & \vspace{.1 cm}  \makecell[l]{null} & \vspace{0 cm} \makecell[c]{$f(x) = null$ drop $x$ \\from the computational graph.}  & \vspace{-0.2 cm} \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_ignore}}  \\
 \hline
 \end{tabular}
 \end{center}
@@ -321,9 +341,15 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 \hline
 \makecell[c]{\textbf{execution cont'd}} & \makecell[c]{\textbf{fn cont'd}} & \makecell[c]{\textbf{Description cont'd}}  & \makecell[c]{\textbf{Image cont'd}}  \\
 \hline
+\vspace{1.2 cm}  \makecell[l]{down} &  \vspace{1.2 cm} \makecell[l]{null} & \vspace{.7 cm} \makecell[c]{ $f(D\otimes null... \otimes null) = $ \\ $ null ... \otimes null \otimes D$ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \vspace{-0.2 cm} \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_down}}  \\
+\hline
+\makecell[l]{up} & \makecell[l]{null} & \makecell[c]{ $f(null... \otimes null \otimes E) = $ \\ $ E\otimes null ... \otimes null $ \\Shifts input down n+1 rows. \\ Height = n+2.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_up}}  \\
+\hline
+\makecell[l]{duplicate down} & \makecell[l]{null} & \makecell[c]{ $f(F\otimes null) = F\otimes F$ \\ Duplicates input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_dupDown}}  \\
+\hline
 \makecell[l]{duplicate up} & \makecell[l]{null} & \makecell[c]{ $f(null \otimes G) = G\otimes G$ \\ Duplicates input.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_dupUp}}  \\
 \hline
-\makecell[l]{braid} & \makecell[l]{null} & \makecell[c]{ $f(H \otimes I) = I\otimes H$ \\ Switches the order of two inputs.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_braid}}  \\
+\vspace{.6 cm} \makecell[l]{braid} & \vspace{.6 cm} \makecell[l]{null} & \vspace{.4 cm} \makecell[c]{ $f(H \otimes I) = I\otimes H$ \\ Switches the order of two inputs.}  & \vspace{-0.2 cm} \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_braid}}  \\
 \hline
 \makecell[l]{WASM} & \makecell[l]{CID of WASM \\ function} & \makecell[c]{ $f(J) = K$ \\ Runs function on input J to \\ produce output K. J and/or \\ K may be a series type.}  & \makecell[c]{\includegraphics[width=.1\columnwidth]{builtInFns_function}}  \\
 \hline
@@ -354,8 +380,286 @@ The type structure outlined here follows the principle of non-interference: \tex
 \subsection{Provenance Communities}\label{provCommunities}
 
 
+\end{multicols}
+\section{Functionality}\label{pseudocode}
+
+This section contains pseudocode for functionality in implementations of transform.storage.
+
+\subsection{Transform.Storage Data Model Required Functions}\label{dataModelFuncs}
+
+Functionality required in any implementation of transform.storage. While these functions respect the logical equivalence between data structures and the CIDs of these data structures, they interoperate between the two on a `best effort' basis. Some implementations of transform.storage may not have access to a live IPFS node (example: if the implementation itself is on-chain), they may be offline, or the required CID may not be retrievable.
+
+In addition to the result, functions return an error code and documentation of the implementation version of the function. Functions below are labeled with the protocol version described.
+
+\subsubsection{isSimpleTypeNormalForm 2.0.0}\label{isSimpleTypeNormalForm_code}
+
+Accepts a type. Result is a boolean which is true if the input argument is a simple type (ie. not a series type) and is in the normal form.
+
+Protocol implementation maintains $isSimpleTypeNormalForm.version$ : $Str$, and  and array of supported $Type.protocol\_version$ values.
+
+\vspace{.25 cm}
+\begin{algorithm}[H]
+\setcounter{AlgoLine}{0}
+\caption{\textbf{isSimpleTypeNormalForm : \\ $Type \rightarrow \{result: Boolean, code: Str, protocol: ``transform.storage", protocol\_version : Str\}$}}
+\label{algo_isSimpleTypeNormalForm}
+\SetKwInOut{Input}{input}
+\SetKwBlock{Begin}{Begin}{}
+\Input{Type $T$}
+\label{alg:quad}
+\SetAlgoLined
+$suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : isSimpleTypeNormalForm.version\} \\
+\uIf{T is $True$} {
+	\tcc{$True$ is a valid simple type}
+	\Return \{result: $True$, code: $null$, ...$suffix$\}
+	}
+\uElseIf{T is $False$} 
+{
+	\tcc{$False$ is a valid simple type}
+	\Return \{result: $False$, code: ``Type T is False", ...$suffix$\}
+}
+\uElseIf{T is an object}
+{
+	\uIf{T does not have a key $T.protocol$ with value ``Transform.Storage"}
+		{\Return \{result: $False$, code: ``Type T does not use the Transform.Storage protocol", ...$suffix$\}}
+	\uElseIf{T does not have a key $T.protocol\_version$}
+		{\Return \{result: $False$, code: ``Type T does not list a Transform.Storage protocol version", ...$suffix$\}}
+	\uElseIf{$T.protocol\_version$ is not supported}
+		{\Return \{result: $False$, code: ``Type T uses Transform.Storage protocol version " + $T.protocol\_version$ + `` not supported by this implementation", ...$suffix$\}}
+	\uElseIf{T does not have all the canonical fields for the given protocol version (see table \ref{typeFields})}
+		{\Return \{result: $False$, code: `T does not contain required Type fields for transform.storage version " + $T.protocol\_version$, ...$suffix$\}}
+	\tcc{If T is an object with the required fields of a supported transform.storage version, then it is a valid simple type in the normal form.}
+	\Else{\Return \{result: $True$, code: $null$, ...$suffix$\}}
+}
+\Else{
+	\Return \{result: $False$, code: ``T is not an object", ...$suffix$\}
+}
+\end{algorithm}
 
 
+\subsubsection{normalizeType 2.0.0}\label{normalizeType_code}
+
+Accepts a type. Returns the normal form of that type, a boolean indicating whether normalization was successful, and an error code. This function also serves to determine whether an input argument is a valid type.
+
+Protocol implementation maintains $normalizeType.version$ : $Str$, and an array of supported versions of $isSimpleTypeNormalForm$.
+
+\vspace{.25 cm}
+\begin{algorithm}[H]
+\setcounter{AlgoLine}{0}
+\caption{\textbf{normalizeType : \\ $Type \rightarrow \{result: Type, success: Boolean, code: Str, protocol: ``transform.storage", protocol\_version : Str\}$}}
+\label{algo_isSimpleTypeNormalForm}
+\SetKwInOut{Input}{input}
+\SetKwBlock{Begin}{Begin}{}
+\Input{Type $T$}
+\label{alg:quad}
+\SetAlgoLined
+$suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : normalizeType.version\} \\
+alreadySimpleNormal $\leftarrow$ isSimpleTypeNormalForm(T)\\
+\uIf{alreadySimpleNormal.protocol\_version not supported}{
+				\Return \{result: null, success: $False$, code: ``isSimpleTypeNormalForm version" + alreadyNormal.protocol\_version + `` not supported by normalizeType version " + ``normalizeType.version", ...$suffix$\}
+}
+\uElseIf{isSimpleTypeNormalForm(T).result is $True$}{
+	\tcc{If T is a simple type in its normal form, then it is already normalized}
+	\Return \{result: T, success: $True$, code: $null$, ...$suffix$\}
+}
+\uElseIf{T is a CID}{
+	\uIf{Have IPFS node}{
+		\tcc{If T is a CID and this implementation has access to an IPFS node, expand the CID and run recursively.}
+		$T_{Expanded} \leftarrow$ Retrieve $T$ from IPFS\\
+		\Return normalizeType($T_{Expanded}$)
+	}
+	\Else{
+		\Return  \{result: null, success: $False$, code: ``Could not expand CID", ...$suffix$\}
+		}
+}
+\uElseIf{T is an array}{
+	\tcc{If T is an array, then normalize each element of the array}
+	toReturn $\leftarrow$ [ ] \\
+	\For{index i of T}{
+		elemResult $\leftarrow$ normalizeType($T[i]$)\\
+		\uIf{elemResult.success is $False$}{
+			\Return elemResult
+		}
+		\Else{
+			\tcc{If we successfully normalized $T[i]$ then add to toReturn either by concatenating (if the normalized form is an array) or appending.}
+			\uIf{elemResult.result is an array}{
+				toReturn $\leftarrow$ Concatenate toReturn and elemResult.result
+				}
+			\Else{
+				toReturn $\leftarrow$ toReturn + elemResult.result
+			}
+		}
+	}
+	\Return \{result: toReturn, success: $True$, code: $null$, ...$suffix$\}
+}
+\Else{
+	\tcc{If T were a simple type, it would either be a CID or in its normal form. If T were a series type, it would either be a CID or an array. Therefore, at this point in the code T must not be a valid type.}
+	\Return  \{result: null, success: $False$, code: ``T is not a type", ...$suffix$\}
+}
+
+\end{algorithm}
+
+
+\subsubsection{isTerm 2.0.0}\label{isTerm_code}
+
+Accepts a type in its normal form, and a data blob. Returns a boolean which is true if the protocol implementation could determine that data is a valid term of the given type, and false otherwise; and an error code.
+
+Protocol implementation maintains $isTerm.version$ : $Str$, and array of supported $Type.protocol\_version$ values.
+
+\vspace{.25 cm}
+\begin{algorithm}[H]
+\setcounter{AlgoLine}{0}
+\caption{\textbf{isTerm : \\ $(Type \otimes Data) \rightarrow \{result: Boolean, code: Str, protocol: ``transform.storage", protocol\_version : Str\}$}}
+\label{algo_isTerm}
+\SetKwInOut{Input}{input}
+\SetKwBlock{Begin}{Begin}{}
+\Input{Type $T$, Data $D$}
+\label{alg:quad}
+\SetAlgoLined
+$suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : isTerm.version\} \\
+\tcc{Check for special cases $True$ and $False$}
+\uIf{T is $True$} {
+	\tcc{Every data blob D is a valid term of type True}
+	\Return \{result: $True$, code: $null$, ...$suffix$\}
+	}
+\uElseIf{T is $False$} 
+{
+	\tcc{Type $False$ has no terms}
+	\Return \{result: $False$, code: ``Type T is False", ...$suffix$\}
+}
+\tcc{If this is a simple type}
+\uElseIf{T is an object}
+	{
+		\tcc{T must be a simple type}
+		\If{T.protocol is not ``Transform.Storage"}{\Return \{result: $False$, code: ``Type T does not use the Transform.Storage protocol", ...$suffix$\}}
+		\If{T.protocol\_version is not supported}{\Return \{result: $False$, code: ``Type T uses Transform.Storage protocol version " + $T.protocol\_version$ + `` not supported by this implementation", ...$suffix$\}}
+		Using the type checking table from the version of the protocol indicated by $T.protocol\_version$, look up $T.type\_checking$ to determine the type checking function $f_{check}$\\
+    		\Return \{...$f_{check}(T, D)$, ...$suffix$\}
+	}
+\tcc{If this is a series type}
+\uElseIf{T is an array} 
+{
+	\If {D is not array with the same length as T}
+	{
+		\Return \{result: $False$, code: ``D and T length mismatch", ...$suffix$\}
+	}
+	\For{index i of T}{
+		\tcc{T and D are both arrays of the same length, so run recursively on each pair of elements}
+		\If {isTerm(T[i], D[i]) returns false}
+		{\Return \{result: $False$, code: ``D and T mismatch at index " + i, ...$suffix$\}}
+	\tcc{At this point in the code, each element of must T match the corresponding element of D}
+	\Return \{result: $True$, code: $null$, ...$suffix$\} \\
+  }
+    }
+\Else
+{
+	\tcc{T is not in the correct format}
+	\Return \{result: $False$, code: ``T is not the normal form of a transform.storage type" , ...$suffix$\}\
+}
+\end{algorithm}
+
+
+
+\subsubsection{isValidAsset 2.0.0}\label{isValidAsset_code}
+
+Accepts an asset. Result is true if the protocol implementation could determine that the asset is valid, and false otherwise. Retrieves asset payload CIDs non-recursively, as discussed in section \ref{asset}.
+
+Protocol implementation maintains $isValidAsset.version$ : $Str$, and arrays of supported $Asset.protocol\_version$, $isSimpleTypeNormalForm$, and $isTerm$ values.
+
+\vspace{.25 cm}
+\begin{algorithm}[H]
+\setcounter{AlgoLine}{0}
+\caption{\textbf{isValidAsset : \\ $Asset \rightarrow \{result: Boolean, code: Str, protocol: ``transform.storage", protocol\_version : Str\}$}}
+\label{algo_isValidAsset}
+\SetKwInOut{Input}{input}
+\SetKwBlock{Begin}{Begin}{}
+\Input{Asset $A$}
+\SetAlgoLined
+$suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : $isValidAsset.version$\} \\
+\tcc{If A is the CID of an Asset and this implementation has access to an IPFS node, expand the CID and run recursively.}
+\uIf{A is a CID}{
+	\uIf{Have IPFS node}{
+		$A_{Expanded} \leftarrow$ Retrieve $A$ from IPFS\\
+		\Return isValidAsset($A_{Expanded}$)
+	}
+	\Else{
+		\Return  \{result: $False$, code: ``Could not expand CID", ...$suffix$\}
+		}
+}
+\tcc{If A is an object, evaluate it.}
+\uIf{A is an object}
+{
+	\uIf{A does not have a key $A.protocol$ with value ``Transform.Storage"}
+		{\Return \{result: $False$, code: ``Asset A does not use the Transform.Storage protocol", ...$suffix$\}}
+	\uElseIf{A does not have a key $A.protocol\_version$}
+		{\Return \{result: $False$, code: ``Asset A does not list a Transform.Storage protocol version", ...$suffix$\}}
+	\uElseIf{$A.protocol\_version$ is not supported}
+		{\Return \{result: $False$, code: ``Asset A uses Transform.Storage protocol version " + $A.protocol\_version$ + `` not supported by this implementation", ...$suffix$\}}
+	\uElseIf{A does not have all the canonical fields for the given protocol version (see table \ref{assetFields})}
+		{\Return \{result: $False$, code: ``A does not contain required Asset fields for transform.storage version " + $A.protocol\_version$, ...$suffix$\}}
+		}
+\uElse{
+		\tcc{A is an object with the correct fields, so evaluate whether A.payload is a term of A.template.}
+		normalizedTemplate $\leftarrow$ normalizeType(A.template)\\
+		\uIf{normalizedTemplate.protocol\_version not supported}{
+				\Return \{result: $False$, code: ``normalizeType version" + normalizedTemplate.protocol\_version + `` not supported by isValidAsset version " + ``isValidAsset.version", ...$suffix$\}
+		}
+		\ElseIf{Not normalizedTemplate.success}{
+			\Return \{result: $False$, code: normalizedTemplate.code, ...$suffix$\}
+		}
+		T $\leftarrow$ normalizedTemplate.result\\
+}
+\end{algorithm}
+\textit{cont'd on next page}
+
+\vspace{.25 cm}
+\begin{algorithm}[H]
+\setcounter{AlgoLine}{25}
+\SetKwInOut{Input}{input}
+\SetKwBlock{Begin}{Begin}{}
+\SetAlgoLined
+\nonl \contIndent{
+	\nonl \contIndent{
+		Initialize $D$\\
+		\tcc{If A.payload is a CID, then retrieve it (exactly once, not recursively) to get the data referenced by the asset. In the edge case that the template schema describes a single CID, then this must be one hierarchical level down (ie. A.payload must be a CID of a CID).}
+		\uIf{$A.payload$ is a CID}{
+			\uIf{Have IPFS node}{
+				$D \leftarrow$ Retrieve $A.payload$ from IPFS\\
+			}
+			\Else{
+				\Return  \{result: $False$, code: ``Could not expand A.payload CID", ...$suffix$\}
+			}
+		}
+		\tcc{In the case that both A.payload and T are arrays, this is a series payload. Expand every element of the payload if it is a CID, otherwise pass that element along unchanged.}
+		\uElseIf{$A.payload$ is an array and T is an array}{
+			$D \leftarrow$ [ ]\\
+			\For{index i of A.payload}{
+				\uIf{$A.payload[i]$ is a CID}{
+					\uIf{Have IPFS node}{
+						Retrieve $A.payload$ from IPFS and append to D\\
+					}
+					\Else{
+						\Return  \{result: $False$, code: ``Could not expand A.payload[" + i + ``] CID", ...$suffix$\}
+					}
+				}
+				\Else {Append $A.payload[i]$ to D}
+			}
+		}
+		\tcc{If A.payload is not a CID and T and A.payload are not both arrays, pass A.payload along unchanged.}
+		\Else{D $\leftarrow$ A.payload}
+	}
+	\textbf{end}\\
+	\tcc{Evaluate whether D is a valid term of T}
+	validTerm $\leftarrow$ isTerm(T, D)\\
+	\Return \{result: validTerm.result, code: validTerm.code, ...$suffix$\}
+}
+\tcc{If A is neither a CID nor an object, it is not a valid Asset.}
+\Else{
+	\Return \{result: $False$, code: ``A is not an object", ...$suffix$\}
+}
+\end{algorithm}
+
+
+\begin{multicols}{2}
 
 \end{multicols}
 \begin{center}
