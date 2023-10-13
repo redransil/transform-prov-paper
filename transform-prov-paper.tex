@@ -72,7 +72,7 @@ Updated \today
 \noindent Data-driven decision making requires combining trusted information from many sources. Here, we introduce two protocols which together allow end-to-end tracing of data provenance over computational pipelines. The first protocol, Transform.Storage, models pipelines as symmetric monoidal categories anchored in content-addressed data types. This allows both reproducible and non-reproducible real-world processes to be described as accessible wiring diagrams. Secondly, the Provenance Protocol uses signatures over data and code to evaluate trust with respect to a community.  While the two protocols may be used independently, together they form a three-layer system dynamically tracing data provenance. To the extent that trust is compositional, this allows a rigorous examination of the flow of trust through through complex and multi-party computational processes. We explore applications of this paradigm to real-world use cases.
 
 
-\begin{multicols}{2}
+
 \setlength{\parskip}{0.1\baselineskip} %Controls vertical space between paragraphs, can re-set line by line
 \section{Introduction}
 
@@ -89,7 +89,7 @@ This section does not attempt a comprehensive literature review of relevant proj
 The World Wide Web Consortium (W3C) developed standards for Decentralized Identifiers (DIDs) and Verifiable Credentials (VCs) to allow management of identities and credentials without a centralized registry. Following these standards, a self-sovereign DID may be generated for an individual or organization. The DID controller establishes and signs a DID Document which describes the public keys, authentication and delegation protocols, and endpoints associated with the DID. By separating the DID Document from the controller's key pair, this specification enables a persistent self-sovereign identifier that supports method upgrades and key pair rotation. \cite{w3cDID}
 
 \begin{center}
-\includegraphics[width=1\columnwidth]{Fig1_assets_20230715}
+\includegraphics[width=0.5\columnwidth]{Fig1_assets_20230715}
 \begin{flushright}
 \captionof{figure}[Three layers of a compute pipeline]{The three layers of a compute pipeline include underlying data assets, functions operating on those assets, and provenance establishing the origins of the lower two layers. Data types establish a correspondence between the asset and function layers, while provenance metadata operating over the lower two layers establishes a flow of trust.}
 \label{layeredDataFig1}
@@ -102,8 +102,6 @@ Tracing decisions end-to-end requires interoperating between work done by many i
 The Interplanetary File System (IPFS) is a protocol which allows users to address and deliver content based on the cryptographic hash of that content rather than its location on the network \cite{ipfs-paper}. This design pattern, namely using a content address as a URI rather than a location address, is essential for maintaining interoperability and will therefore be used as the basis for data addressing in this work.
 
 
-IPLD
-
 \subsection{Wiring Diagrams and Symmetric Monoidal Categories}\label{smc}
 
 Wiring diagrams are computational graphs in which data types are represented by lines and functions are represented by boxes. It has been shown that they can be interpreted rigorously as representations of symmetric monoidal categories (SMCs). \cite{Patterson_2021} 
@@ -114,10 +112,6 @@ A category is a mathematical structure containing objects as well as directional
 A SMC is a monoidal category with a braiding operation $Braid_{A,B} : A \otimes B \rightarrow B \otimes A$ that is symmetric: $Braid_{A,B} \zcmp Braid_{B,A}=Identity_{A \otimes B}$. If objects in a category are interpreted as data types and morphisms as functions mapping from one datatype to another, then the product in an SMC can be interpreted as an ordered set of two non-interacting data types. 
 
 Representing data pipelines in transform.storage as wiring diagrams is provides a formal grounding for computational diagrams that behave intuitively. The type structure makes it possible to define which functions are allowed to be composed with other functions, and by anchoring types using content addresses we are able to achieve interoperability between data storage and compute platforms without sacrificing verifiability. Furthermore, \textbf{composition and data provenance together allow a rigorous and automatic assessment of the flow of trust through a compute pipeline.}  However, while types in transform.storage should be interpreted strictly composition should not be. In practice, user functions may not be defined over their entire domain (therefore, using the example from above, $h : A \rightarrow C$ such that $h = f \zcmp g$ might not be defined for all values of type $A$) and may not be deterministic or even formally defined themselves. This means that while pipelines and their component functions are interpreted as morphisms within SMCs, compositionality may be broken when the computation is carried out. 
-
-
-\subsection{Provenance Systems}\label{smc}
-Prov-o, Numbers protocol, ethereum attestations 
 
 \section{Transform.Storage Data Model}\label{transformtypes}
 
@@ -133,29 +127,29 @@ As in type theory, a type in Transform.Storage is a collection of terms sharing 
 
 Types are expressed in Transform.Storage as either (1) IPLD objects with the canonical attributes described in Table \ref{typeFields}, or (2) logically equivalently, the CIDs of these IPLD objects. Individual implementations may add optional fields.
 
-\begin{flushleft}
-\begin{tabular}{ || p{3cm} | p{4.5cm} ||}
+\begin{center}
+\begin{tabular}{ || p{5cm} | p{9cm} ||}
 \hline			
 \multicolumn{2}{|| l ||}{\textbf{Type Fields}} \\
 \hline
-\makecell[l]{\textbf{cid} \\ \textit{(CID)}} & \makecell[l]{CID of the data defining this \\ type; for example the CID \\of a schema. May be null.}\\
+\makecell[l]{\textbf{cid} \\ \textit{(CID)}} & \makecell[l]{CID of the data defining this type; for example the CID \\of a schema. May be null.}\\
 \hline
-\makecell[l]{\textbf{type\_checking} \\ \textit{(string)}} & \makecell[l]{A value from the Type \\ Checking Table, specifying \\ the function $f_{check}$} \\
+\makecell[l]{\textbf{type\_checking} \\ \textit{(string)}} & \makecell[l]{A value from the Type Checking Table, specifying \\ the function $f_{check}$} \\
 \hline
-\makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the \\ creator of this type} \\
+\makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the creator of this type} \\
 \hline
-\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \\ \textit{Type.creator is} \\ \textit{non-null})} & \makecell[l]{Value from the Identifier \\ Table (section \ref{transformID}) describing \\ the type of identifier \\ associated with the creator \\ field.} \\
+\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \textit{Type.creator is} \\ \textit{non-null})} & \makecell[l]{Value from the Identifier Table (section \ref{transformID}) describing \\ the type of identifier associated with the creator \\ field.} \\
 \hline
 \makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
 \hline
-\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol \\ which this type is pursuant \\ to, such as  ``2.0.0"} \\
+\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which this type is pursuant \\ to, such as  ``2.0.0"} \\
 \hline
 \makecell[l]{\textbf{name} \\ \textit{(string, optional)}} & \makecell[l]{Short human-readable label} \\
 \hline
 \makecell[l]{\textbf{description} \\ \textit{(string, optional)}} &\makecell[l]{ Longer human-readable label}  \\
 \hline  
 \end{tabular}
-\end{flushleft}
+\end{center}
  
 \captionof{table}[Type Fields]{Definitions of the canonical fields describing a Transform.Storage type.}
 \label{typeFields}
@@ -166,13 +160,12 @@ The value of $type\_checking$ is cross-referenced with the type checking table m
 
 Membership in a type is defined by the fields $cid$, and $type\_checking$. A simple type is defined by the data in $cid$ and the function determined in $type\_checking$ (Figure \ref{typesAssets_fig}a). Alternatively, a series type is represented as an array of the CIDs of types (Figure \ref{typesAssets_fig}b). 
 
-\end{multicols}
+
 \begin{center}
 \includegraphics[width=1\columnwidth]{fig_types_assets_20230802}
 \captionof{figure}[Types and assets]{Block diagram showing types and assets in Transform.Storage. Blocks represent IPLD objects, (logically equivalently) CIDs of IPLD objects, or CIDs of data blobs and arrow labels represent keys of objects. Brackets represent IPLD arrays. (a) This simple type is defined by a schema which is referenced in its Type.cid field. (b) The series type $A \otimes B$ is represented as an array of the CIDs of types $A$ and $B$, and is logically equivalent to the CID of that array. (c) An asset $a : A$. (d) A series asset, showing $[a, b] : A \otimes B$.}
 \label{typesAssets_fig}
 \end{center}
-\begin{multicols}{2}
 
 Any of the following may thus represent a type:
 \begin{enumerate}
@@ -206,61 +199,55 @@ An asset is a data structure asserting that a given dataset is a term of a given
 
 The block diagrams shown in figure \ref{typesAssets_fig} express (c) $a : A$, and (d) $[a, b] : A \otimes B$. 
 
-The type referenced by $Asset.template$ does not need to be in a normal form as described in section \ref{type} and there are many equivalent representations of any given type. However, the data referenced by $Asset.payload$ is more restricted in that payload CIDs are not hierarchically resolved by the protocol. Thus, if $Asset.payload$ is a CID then either the normal form of $Asset.template$ must be a simple type, or the $Asset.payload$ CID must resolve to an array of data elements matching the $Asset.template$ series type. If $Asset.payload$ is an array then the normal form of $Asset.template$ must be an array with the same number of elements, or $Asset.template$ must be a simple type describing an array. Further hierarchical layers of $Asset.payload$ are not resolved. This is because, while the protocol constrains the structure of types, the contents of data blobs are exogenous to the protocol. If this were not the case, and asset payloads were allowed to contain hierarchical structures similar to series types, it would in principle be impossible for the protocol to distinguish the nested 
-
-\end{multicols}
-\begin{center}
-\includegraphics[width=1\columnwidth]{fig_functions}
-\captionof{figure}[Functions]{Block diagram showing functions in Transform.Storage. (a) A function consists of input and output types, as well as a function definition which accepts data conforming to the given input types and returns data conforming to the given output types. (b) A function accepting the series type $A \otimes B$, in which this input type is represented in normal form. (c) A function with the same series input as $b$, where this input is represented in non-normal form.}
-\label{functions_fig}
-\end{center}
-\begin{multicols}{2}
-\setlength{\parindent}{.5 cm}
-
-structure of the payload from any underlying structure of the payload data without constraining the structure of that data. This would violate non-interference (section \Ref{nonInterference})
+The type referenced by $Asset.template$ does not need to be in a normal form as described in section \ref{type} and there are many equivalent representations of any given type. However, the data referenced by $Asset.payload$ is more restricted in that payload CIDs are not hierarchically resolved by the protocol. Thus, if $Asset.payload$ is a CID then either the normal form of $Asset.template$ must be a simple type, or the $Asset.payload$ CID must resolve to an array of data elements matching the $Asset.template$ series type. If $Asset.payload$ is an array then the normal form of $Asset.template$ must be an array with the same number of elements, or $Asset.template$ must be a simple type describing an array. Further hierarchical layers of $Asset.payload$ are not resolved. This is because, while the protocol constrains the structure of types, the contents of data blobs are exogenous to the protocol. If this were not the case, and asset payloads were allowed to contain hierarchical structures similar to series types, it would in principle be impossible for the protocol to distinguish the nested structure of the payload from any underlying structure of the payload data without constraining the structure of that data. This would violate non-interference (section \Ref{nonInterference})
 \setlength{\parindent}{.5 cm}
 
 Pseudocode for $isValidAsset$, a required function which determines whether or not an asset is valid, is given in Algorithm \ref{algo_isValidAsset}.
 
-
-\begin{flushleft}
-\begin{tabular}{ || p{3cm} | p{4.5cm} ||}
+\begin{center}
+\begin{tabular}{ || p{5cm} | p{9cm} ||}
 \hline			
 \multicolumn{2}{|| l ||}{\textbf{Asset Fields}} \\
 \hline
-\makecell[l]{\textbf{payload} \\ \textit{(CID, array, or} \\ \textit{object)}} & \makecell[l]{The CID of the data \\ referenced by this asset, an \\ array of data CIDs, or the \\ raw data represented as an \\ object or array.}\\
+\makecell[l]{\textbf{payload} \\ \textit{(CID, array, or} \textit{object)}} & \makecell[l]{The CID of the data referenced by this asset, an \\ array of data CIDs, or the raw data represented as an \\ object or array.}\\
 \hline
-\makecell[l]{\textbf{template} \\ \textit{(type)}} & \makecell[l]{The transform.storage type \\ referenced by this asset.}\\
+\makecell[l]{\textbf{template} \\ \textit{(type)}} & \makecell[l]{The transform.storage type referenced by this asset.}\\
 \hline
-\makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the \\ creator of this asset} \\
+\makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the creator of this asset} \\
 \hline	
 \end{tabular}
-\end{flushleft}
+\end{center}
 \setlength{\parindent}{.5 cm}
 \vspace{.25 cm}
 
-\begin{flushleft}
-\begin{tabular}{ || p{3cm} | p{4.5cm} ||}
+\begin{center}
+\begin{tabular}{ || p{5cm} | p{9cm} ||}
 \hline			
 \multicolumn{2}{|| l ||}{\textbf{Asset Fields cont'd}} \\
 \hline
-\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \\ \textit{Type.creator is} \\ \textit{non-null})} & \makecell[l]{Value from the Identifier \\ Table (section \ref{transformID}) describing \\ the type of identifier \\ associated with the creator \\ field.} \\
+\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \textit{Type.creator} \\ \textit{is non-null})} & \makecell[l]{Value from the Identifier Table (section \ref{transformID}) describing \\ the type of identifier associated with the creator \\ field.} \\
 \hline
 \makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
 \hline
-\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol \\ which this type is pursuant \\ to, such as  ``2.0.0"} \\
+\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which this type is pursuant \\ to, such as  ``2.0.0"} \\
 \hline
 \makecell[l]{\textbf{name} \\ \textit{(string, optional)}} & \makecell[l]{Short human-readable label} \\
 \hline
 \makecell[l]{\textbf{description} \\ \textit{(string, optional)}} &\makecell[l]{ Longer human-readable label}  \\
 \hline  
 \end{tabular}
-\end{flushleft}
+\end{center}
 \captionof{table}[Type Fields]{Definitions of the canonical fields describing a Transform.Storage asset.}
 \label{assetFields}
 \setlength{\parindent}{.5 cm}
 \vspace{.25 cm}
 
+\begin{center}
+\includegraphics[width=1\columnwidth]{fig_functions}
+\captionof{figure}[Functions]{Block diagram showing functions in Transform.Storage. (a) A function consists of input and output types, as well as a function definition which accepts data conforming to the given input types and returns data conforming to the given output types. (b) A function accepting the series type $A \otimes B$, in which this input type is represented in normal form. (c) A function with the same series input as $b$, where this input is represented in non-normal form.}
+\label{functions_fig}
+\end{center}
+\setlength{\parindent}{.5 cm}
 
 \subsection{Function}\label{function}
 A function is an operation mapping from an input type to an output type. Functions themselves have types. If $f$ is a function mapping from type $A$ to type $B$, then $f : A \rightarrow B$ (``$f$ is of type $A$ to $B$"). A function in Transform.Storage contains information about the content addressed input and output types of that function, the function definition, and the execution environment in which the function was tested. These fields are shown in table \ref{functionFields}.
@@ -271,49 +258,39 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 
 
 
-\begin{flushleft}
-\begin{tabular}{ || p{3cm} | p{4.5cm} ||}
+\begin{center}
+\begin{tabular}{ || p{5cm} | p{9cm} ||}
 \hline			
 \multicolumn{2}{|| l ||}{\textbf{Function Fields}} \\
 \hline
-\makecell[l]{\textbf{execution} \\ \textit{(string)}} & \makecell[l]{Value chosen from the \\ execution table. Necessary to \\ interpret fn.} \\
+\makecell[l]{\textbf{execution} \\ \textit{(string)}} & \makecell[l]{Value chosen from the execution table. Necessary to \\ interpret fn.} \\
 \hline
-\makecell[l]{\textbf{fn} \\ \textit{(See Table \ref{execTable})}} & \makecell[l]{Function definition of type \\ chosen from the Execution \\ Table}\\
+\makecell[l]{\textbf{fn} \\ \textit{(See Table \ref{execTable})}} & \makecell[l]{Function definition of type chosen from the Execution \\ Table}\\
 \hline
-\makecell[l]{\textbf{reference} \\ \textit{(string)}} & \makecell[l]{Pointer (CID or URL) to \\ human-readable $fn$ code. Not \\ used in execution.} \\
+\makecell[l]{\textbf{reference} \\ \textit{(string)}} & \makecell[l]{Pointer (CID or URL) to human-readable $fn$ code. Not \\ used in execution.} \\
 \hline
-\makecell[l]{\textbf{in} \\ \textit{(type)}} & \makecell[l]{Input type. May be a CID, \\ an IPLD object or an IPLD \\ array.} \\
+\makecell[l]{\textbf{in} \\ \textit{(type)}} & \makecell[l]{Input type. May be a CID, an IPLD object or an IPLD \\ array.} \\
 \hline
-\end{tabular}
-\end{flushleft}
-\setlength{\parindent}{.5 cm}
-\vspace{.25 cm}
-
-\begin{flushleft}
-\begin{tabular}{ || p{3cm} | p{4.5cm} ||}
-\hline	
-\multicolumn{2}{|| l ||}{\textbf{Function Fields cont'd}} \\
+\makecell[l]{\textbf{out} \\ \textit{(type)}} & \makecell[l]{Output type. May be a CID, an IPLD object or an IPLD \\ array.} \\
 \hline
-\makecell[l]{\textbf{out} \\ \textit{(type)}} & \makecell[l]{Output type. May be a CID, \\ an IPLD object or an IPLD \\ array.} \\
+\makecell[l]{\textbf{environment} \\ \textit{(string)}} & \makecell[l]{Compute environment where this function was tested, \\ chosen from the environment table} \\
 \hline
-\makecell[l]{\textbf{environment} \\ \textit{(string)}} & \makecell[l]{Compute environment where \\ this function was tested, \\ chosen from the environment \\ table} \\
+\makecell[l]{\textbf{env\_params} \\ \textit{(string)}} & \makecell[l]{Parameters passed to the environment. Format depends \\ on the value of environment.} \\
 \hline
-\makecell[l]{\textbf{env\_params} \\ \textit{(string)}} & \makecell[l]{Parameters passed to the \\ environment. Format depends \\ on the value of environment.} \\
+\makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the creator of this type} \\
 \hline
-\makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the \\ creator of this type} \\
-\hline
-\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \\ \textit{Type.creator is} \\ \textit{non-null})} & \makecell[l]{Value from the Identifier \\ Table (section \ref{transformID}) describing \\ the type of identifier \\ associated with the creator \\ field}\\
+\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if Type.creator} \\ \textit{is non-null})} & \makecell[l]{Value from the Identifier Table (section \ref{transformID}) describing \\ the type of identifier associated with the creator \\ field}\\
 \hline
 \makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
 \hline
-\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol \\ which this type is pursuant \\ to, such as  ``2.0.0"} \\
+\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which this type is pursuant \\ to, such as  ``2.0.0"} \\
 \hline			
 \makecell[l]{\textbf{name} \\ \textit{(string, optional)}} & \makecell[l]{Short human-readable label} \\
 \hline
 \makecell[l]{\textbf{description} \\ \textit{(string, optional)}} &\makecell[l]{ Longer human-readable label}  \\
 \hline  
 \end{tabular}
-\end{flushleft}
+\end{center}
 \captionof{table}[Function Fields]{Definitions of the canonical fields describing a Transform.Storage function.}
 \label{functionFields}
 \setlength{\parindent}{.5 cm}
@@ -321,7 +298,7 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 
 
 
-\end{multicols}
+
 \begin{center}
 \begin{tabular}{ || p{3cm} | p{3cm} | p{5.5cm} | p{4.5cm} ||}
 \hline
@@ -362,25 +339,13 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 \captionof{table}[Execution Table]{Execution Table. The function definition (Table \ref{functionFields} includes $fn$ and $execution$ variables defining functions and how they are interpreted. In the case of functions built in to Transform.Storage such as $identity$ or $introduce$, the $execution$ variable determines the identity of the function parameterized by $fn$. In the case of an externally defined function, $fn$ is a pointer to the function and $execution$ parameterizes the interpretation of this function.}
 \label{execTable}
 \setlength{\parindent}{.5 cm}
-\begin{multicols}{2}
-\vspace{.25 cm}
 
-\subsection{Identifier Table}\label{transformID}
-- used to identify a creator
+\vspace{.25 cm}
 
 \subsection{Non-Interference}\label{nonInterference}
 The type structure outlined here follows the principle of non-interference: \textit{every layer only references layers below it, never above it.} Thus, data never makes assumptions about type, type does not make assumptions about functions, and no lower level makes assumptions about provenance. This is necessary to ensure interoperability: higher levels are always extensible to include new lower-level cases as long as they can be referenced unambiguously using content addresses. 
 
-\section{Transform.Storage Pipelines}\label{transformpipes}
 
-\section{Provenance Protocol}\label{provprotocol}
-
-\subsection{Provenance Messages}\label{provMessages}
-
-\subsection{Provenance Communities}\label{provCommunities}
-
-
-\end{multicols}
 \section{Functionality}\label{pseudocode}
 
 This section contains pseudocode for functionality in implementations of transform.storage.
@@ -659,22 +624,21 @@ $suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : $isV
 \end{algorithm}
 
 
-\begin{multicols}{2}
 
-\end{multicols}
+
 \begin{center}
     
 \includegraphics[width=1\columnwidth]{pipeline_layers_20230715}
 \captionof{figure}[Simple compute pipeline]{Diagram of a simple compute pipeline consisting of one input asset, one function, and one output asset highlighting relationships between data model components.}
 \label{simplePipeline}
 \end{center}
-\begin{multicols}{2}
+
 
 % the bibliography file (below) needs to have the same name as the tex file
 % run typeset .tex file as LaTeX, then typeset .bib file as BibTeX, then twice typeset .tex as LaTeX
 \bibliography{transform-prov-paper}{}
 \bibliographystyle{plain}
 
-\end{multicols}
+
 \end{document}  
 
