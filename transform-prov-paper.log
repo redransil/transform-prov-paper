@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  14 OCT 2023 13:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  14 OCT 2023 15:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1462,135 +1462,132 @@ LaTeX Font Info:    Trying to load font information for U+lasy on input line 10
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-Overfull \hbox (7.50311pt too wide) in paragraph at lines 139--139
+Overfull \hbox (7.50311pt too wide) in paragraph at lines 150--150
 |[][]
  []
 
 
-LaTeX Warning: Reference `transformID' on page 3 undefined on input line 139.
+LaTeX Warning: Reference `transformID' on page 3 undefined on input line 150.
 
 [3]
 
 Package caption Warning: \captionsetup{type*=...} or \captionof
-(caption)                outside box or environment on input line 152.
+(caption)                outside box or environment on input line 163.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 152.
+(caption)                particular \caption on input line 163.
 See the caption package documentation for explanation.
 
-<fig_types_assets_20230802.png, id=108, 1183.42125pt x 227.85126pt>
+<fig_types_assets_20230802.png, id=114, 1183.42125pt x 227.85126pt>
 File: fig_types_assets_20230802.png Graphic file (type png)
 <use fig_types_assets_20230802.png>
-Package pdftex.def Info: fig_types_assets_20230802.png  used on input line 163.
+Package pdftex.def Info: fig_types_assets_20230802.png  used on input line 174.
 
 (pdftex.def)             Requested size: 500.484pt x 96.36092pt.
 
 Package caption Warning: The type was already set to `table'
-(caption)                 on input line 164.
+(caption)                 on input line 175.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 164.
+(caption)                particular \caption on input line 175.
 See the caption package documentation for explanation.
 
 [4 <./fig_types_assets_20230802.png>]
 
-LaTeX Warning: Reference `transformID' on page 5 undefined on input line 226.
+LaTeX Warning: Reference `transformID' on page 5 undefined on input line 237.
 
 [5]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 238.
+(caption)                particular \caption on input line 249.
 See the caption package documentation for explanation.
 
-<fig_functions.png, id=140, 803.0pt x 430.60875pt>
+<fig_functions.png, id=144, 803.0pt x 430.60875pt>
 File: fig_functions.png Graphic file (type png)
 <use fig_functions.png>
-Package pdftex.def Info: fig_functions.png  used on input line 244.
+Package pdftex.def Info: fig_functions.png  used on input line 255.
 (pdftex.def)             Requested size: 500.484pt x 268.39389pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 245.
+(caption)                particular \caption on input line 256.
 See the caption package documentation for explanation.
 
 [6 <./fig_functions.png>]
 
-LaTeX Warning: Reference `transformID' on page 7 undefined on input line 280.
-
-
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 292.
+(caption)                particular \caption on input line 303.
 See the caption package documentation for explanation.
 
-<builtInFns_id.png, id=150, 94.3525pt x 66.2475pt>
+<builtInFns_id.png, id=154, 94.3525pt x 66.2475pt>
 File: builtInFns_id.png Graphic file (type png)
 <use builtInFns_id.png>
-Package pdftex.def Info: builtInFns_id.png  used on input line 305.
+Package pdftex.def Info: builtInFns_id.png  used on input line 316.
 (pdftex.def)             Requested size: 50.05145pt x 35.14233pt.
-<builtInFns_introduce.png, id=151, 186.6975pt x 118.4425pt>
+<builtInFns_introduce.png, id=155, 186.6975pt x 118.4425pt>
 File: builtInFns_introduce.png Graphic file (type png)
 <use builtInFns_introduce.png>
-Package pdftex.def Info: builtInFns_introduce.png  used on input line 307.
+Package pdftex.def Info: builtInFns_introduce.png  used on input line 318.
 (pdftex.def)             Requested size: 50.05145pt x 31.75218pt.
-<builtInFns_ignore.png, id=152, 185.69376pt x 125.46875pt>
+<builtInFns_ignore.png, id=156, 185.69376pt x 125.46875pt>
 File: builtInFns_ignore.png Graphic file (type png)
 <use builtInFns_ignore.png>
-Package pdftex.def Info: builtInFns_ignore.png  used on input line 309.
+Package pdftex.def Info: builtInFns_ignore.png  used on input line 320.
 (pdftex.def)             Requested size: 50.05145pt x 33.81766pt.
 
-Overfull \hbox (9.56003pt too wide) in paragraph at lines 301--312
+Overfull \hbox (9.56003pt too wide) in paragraph at lines 312--323
  [] 
  []
 
-<builtInFns_down.png, id=153, 184.69pt x 359.3425pt>
+<builtInFns_down.png, id=157, 184.69pt x 359.3425pt>
 File: builtInFns_down.png Graphic file (type png)
 <use builtInFns_down.png>
-Package pdftex.def Info: builtInFns_down.png  used on input line 319.
+Package pdftex.def Info: builtInFns_down.png  used on input line 330.
 (pdftex.def)             Requested size: 50.05145pt x 97.38017pt.
-<builtInFns_up.png, id=154, 173.64874pt x 355.3275pt>
+<builtInFns_up.png, id=158, 173.64874pt x 355.3275pt>
 File: builtInFns_up.png Graphic file (type png)
 <use builtInFns_up.png>
-Package pdftex.def Info: builtInFns_up.png  used on input line 321.
+Package pdftex.def Info: builtInFns_up.png  used on input line 332.
 (pdftex.def)             Requested size: 50.05145pt x 102.41881pt.
-<builtInFns_dupDown.png, id=155, 175.65625pt x 223.83624pt>
+<builtInFns_dupDown.png, id=159, 175.65625pt x 223.83624pt>
 File: builtInFns_dupDown.png Graphic file (type png)
 <use builtInFns_dupDown.png>
-Package pdftex.def Info: builtInFns_dupDown.png  used on input line 323.
+Package pdftex.def Info: builtInFns_dupDown.png  used on input line 334.
 (pdftex.def)             Requested size: 50.05145pt x 63.78032pt.
-<builtInFns_dupUp.png, id=156, 176.66pt x 224.84pt>
+<builtInFns_dupUp.png, id=160, 176.66pt x 224.84pt>
 File: builtInFns_dupUp.png Graphic file (type png)
 <use builtInFns_dupUp.png>
-Package pdftex.def Info: builtInFns_dupUp.png  used on input line 325.
+Package pdftex.def Info: builtInFns_dupUp.png  used on input line 336.
 (pdftex.def)             Requested size: 50.05145pt x 63.70267pt.
-<builtInFns_braid.png, id=157, 180.675pt x 219.82124pt>
+<builtInFns_braid.png, id=161, 180.675pt x 219.82124pt>
 File: builtInFns_braid.png Graphic file (type png)
 <use builtInFns_braid.png>
-Package pdftex.def Info: builtInFns_braid.png  used on input line 327.
+Package pdftex.def Info: builtInFns_braid.png  used on input line 338.
 (pdftex.def)             Requested size: 50.05145pt x 60.89545pt.
-<builtInFns_function.png, id=158, 171.64125pt x 115.43124pt>
+<builtInFns_function.png, id=162, 171.64125pt x 115.43124pt>
 File: builtInFns_function.png Graphic file (type png)
 <use builtInFns_function.png>
-Package pdftex.def Info: builtInFns_function.png  used on input line 329.
+Package pdftex.def Info: builtInFns_function.png  used on input line 340.
 (pdftex.def)             Requested size: 50.05145pt x 33.65913pt.
 File: builtInFns_function.png Graphic file (type png)
 <use builtInFns_function.png>
-Package pdftex.def Info: builtInFns_function.png  used on input line 331.
+Package pdftex.def Info: builtInFns_function.png  used on input line 342.
 (pdftex.def)             Requested size: 50.05145pt x 33.65913pt.
 
-Overfull \hbox (2.31577pt too wide) in paragraph at lines 333--333
+Overfull \hbox (2.31577pt too wide) in paragraph at lines 344--344
 |[] []
  []
 
-<builtInFns_pipeline.png, id=159, 532.99126pt x 427.5975pt>
+<builtInFns_pipeline.png, id=163, 532.99126pt x 427.5975pt>
 File: builtInFns_pipeline.png Graphic file (type png)
 <use builtInFns_pipeline.png>
-Package pdftex.def Info: builtInFns_pipeline.png  used on input line 333.
+Package pdftex.def Info: builtInFns_pipeline.png  used on input line 344.
 (pdftex.def)             Requested size: 50.05145pt x 40.1524pt.
 
-Overfull \hbox (9.56003pt too wide) in paragraph at lines 315--336
+Overfull \hbox (9.56003pt too wide) in paragraph at lines 326--347
  [] 
  []
 
@@ -1598,31 +1595,31 @@ Overfull \hbox (9.56003pt too wide) in paragraph at lines 315--336
 ]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 337.
+(caption)                particular \caption on input line 348.
 See the caption package documentation for explanation.
 
 [8 <./builtInFns_down.png> <./builtInFns_up.png> <./builtInFns_dupDown.png> <./
 builtInFns_dupUp.png> <./builtInFns_braid.png> <./builtInFns_function.png> <./b
-uiltInFns_pipeline.png>]
+uiltInFns_pipeline.png>] [9]
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 3
-73.
+85.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 373.
- [9] [10] [11]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 385.
+ [10] [11]
 [12] [13]
-<pipeline_layers_20230715.png, id=319, 901.3675pt x 390.45876pt>
+<pipeline_layers_20230715.png, id=323, 901.3675pt x 390.45876pt>
 File: pipeline_layers_20230715.png Graphic file (type png)
 <use pipeline_layers_20230715.png>
-Package pdftex.def Info: pipeline_layers_20230715.png  used on input line 629.
+Package pdftex.def Info: pipeline_layers_20230715.png  used on input line 640.
 (pdftex.def)             Requested size: 500.484pt x 216.80249pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 630.
+(caption)                particular \caption on input line 641.
 See the caption package documentation for explanation.
 
 [14] (./transform-prov-paper.bbl) [15 <./pipeline_layers_20230715.png>]
@@ -1633,17 +1630,23 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `transform-prov-paper.out' has not changed.
-(rerunfilecheck)             Checksum: 7F1A5828B9827BB2B4BC60AB424F2D82;2681.
+
+Package rerunfilecheck Warning: File `transform-prov-paper.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `transform-prov-paper.out':
+(rerunfilecheck)             Before: B28C49612347D89774DFA6E774F83130;2720
+(rerunfilecheck)             After:  00B5C7066C0F459B21D77A7DA2B3AE07;2720.
  ) 
 Here is how much of TeX's memory you used:
- 16474 strings out of 478994
- 252759 string characters out of 5858183
- 804025 words of memory out of 5000000
- 33486 multiletter control sequences out of 15000+600000
+ 16482 strings out of 478994
+ 252915 string characters out of 5858183
+ 804184 words of memory out of 5000000
+ 33490 multiletter control sequences out of 15000+600000
  418727 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 82i,27n,88p,1359b,807s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 82i,27n,88p,1346b,807s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
@@ -1660,10 +1663,10 @@ e/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/
 2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2
 021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/202
 1/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on transform-prov-paper.pdf (15 pages, 749020 bytes).
+Output written on transform-prov-paper.pdf (15 pages, 749604 bytes).
 PDF statistics:
- 453 PDF objects out of 1000 (max. 8388607)
- 389 compressed objects within 4 object streams
- 189 named destinations out of 1000 (max. 500000)
+ 460 PDF objects out of 1000 (max. 8388607)
+ 396 compressed objects within 4 object streams
+ 193 named destinations out of 1000 (max. 500000)
  207 words of extra memory for PDF output out of 10000 (max. 10000000)
 

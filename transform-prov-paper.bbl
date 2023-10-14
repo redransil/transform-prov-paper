@@ -1,13 +1,33 @@
 \begin{thebibliography}{1}
 
-\bibitem{transformSpec}
-Transform.storage specification, 2023.
-\newblock Available at \url{https://spec.transform.storage}.
+\bibitem{operadNlab}
+Operad, 2023.
+\newblock Available at \url{https://ncatlab.org/nlab/show/operad}.
 
 \bibitem{ipfs-paper}
 Juan Benet.
 \newblock Ipfs - content addressed, versioned, p2p file system.
 \newblock {\em arXiv}, 2014.
+
+\bibitem{loday2012algebraic}
+Jean-Louis Loday and Bruno Vallette.
+\newblock {\em Algebraic operads}, volume 346.
+\newblock Springer, 2012.
+
+\bibitem{markl2008operads}
+Martin Markl.
+\newblock Operads and props.
+\newblock {\em Handbook of algebra}, 5:87--140, 2008.
+
+\bibitem{may1997definitions}
+J~Peter May.
+\newblock Definitions: operads, algebras and modules.
+\newblock {\em Contemporary Mathematics}, 202:1--8, 1997.
+
+\bibitem{may2006geometry}
+J~Peter May.
+\newblock {\em The geometry of iterated loop spaces}, volume 271.
+\newblock Springer, 2006.
 
 \bibitem{Patterson_2021}
 Evan Patterson, David~I. Spivak, and Dmitry Vagner.

@@ -51,13 +51,13 @@
 
 
 \begin{center}
-\Large{\textbf{Data Provenance Over Computational Graphs}}
+\Large{\textbf{The Operad Protocol: Determining Data Provenance Over Computational Graphs}}
 \vspace{1 cm}
 
 \normalsize{}
 Alan Ransil
 
-
+\vspace{0.25 cm}
 aransil@alumni.stanford.edu
 
 \vspace{1 cm}
@@ -68,15 +68,15 @@ Updated \today
 
 \end{center}
 
-\noindent Data-driven decision making requires combining trusted information from many sources and applying arbitrary compute operations. Here, we introduce a protocol called Operad which allows end-to-end tracing of data provenance over computational pipelines. The protocol models pipelines as morphisms in symmetric monoidal categories (operad morphisms) anchored in content-addressed data types. This allows both reproducible and non-reproducible real-world processes to be modeled as wiring diagrams, in which elements of the process diagram relate to elements of data and provenance wiring diagrams with a corresponding structure. Together, data, transformations and provenance form a three-layer system. This allows a rigorous examination of the flow of trust through through complex and multi-party computational processes. 
+\noindent Data-driven decision making requires combining trusted information using arbitrary compute operations. Here, we introduce a protocol called Operad which allows end-to-end tracing of data provenance over computational pipelines. The protocol models pipelines as morphisms in symmetric monoidal categories (operad morphisms) anchored in content-addressed data types. This allows both reproducible and non-reproducible real-world processes to be modeled as wiring diagrams, in which elements of the process diagram relate to elements of data and provenance wiring diagrams with a corresponding structure. Together, data, transformations and provenance form a three-layer system. This allows a rigorous examination of the flow of trust through through complex and multi-party computational processes. 
 
 
 \setlength{\parskip}{0.1\baselineskip} %Controls vertical space between paragraphs, can re-set line by line
 \section{Introduction}
 
-There is a need to establish the end-to-end reasoning behind data driven decisions, and in particular reasoning incorporating data supplied by many parties. Several trends make this need increasingly urgent. First, the trend towards using public and open source data to substantiate decisions increases the utility of expressing these decisions using transparent end-to-end compute pipelines. Second, decisions are increasingly automated with IOT, smart contract and AI subsystems forming parts of the decision making pipeline. Explicitly recording this pipeline is necessary to substantiate trust in the end result. Third, generative AI heightens the need to rigorously track the provenance of data to combat misinformation. Fourth, decisions in critical areas such as environmental sustainability and AI ethics and safety rely on rapidly evolving research which carries an imperative to explicitly lay out methodologies so that they can be reproduced, challenged, improved, and rapidly applied. Fifth, the introduction of more powerful and general zero knowledge systems increases the necessity of tracing decisions end-to-end so that proven claims relying on little revealed information can be put into context.
+There is a need to establish the end-to-end reasoning behind data driven decisions, and in particular reasoning incorporating data supplied by many parties. Several trends make this need increasingly urgent. First, the trend towards using public and open source data to substantiate decisions increases the utility of expressing these decisions transparently and verifiably. Second, decisions are increasingly automated with IOT, smart contract and AI subsystems forming parts of the decision making pipeline. Explicitly recording this pipeline is necessary to substantiate trust in the end result. Third, generative AI heightens the need to rigorously track the provenance of data to combat misinformation. Fourth, decisions in critical areas such as environmental sustainability and AI ethics and safety rely on rapidly evolving research which carries an imperative to explicitly lay out methodologies so that they can be reproduced, challenged, improved, and rapidly applied. Fifth, the introduction of more powerful and general zero knowledge systems increases the necessity of tracing decisions end-to-end so that proven claims relying on little revealed information can be put into context.
 
-Here we introduce two protocols that together can be used to model end-to-end decisions as modular compute pipelines, reproduce their results if sufficient information is revealed, establish trust relative to norms determined by user communities, and allow subsequent users to reuse or extend these pipelines without sacrificing verifiability. These protocols model compute pipelines in three layers as shown in figure \ref{layeredDataFig1}. The first protocol, Transform.Storage, represents functions as modular, directional relationships between data types. At the data Asset layer, this defines pipelines as typed datasets on a two-dimensional grid along with functional maps between them. At the Function layer, Transform.Storage represents function definitions coupled with input and output types. The correspondence between these layers is determined by the types of Assets on the lower level and the input and output types of Functions at the middle level. The second protocol, the Provenance Protocol, can be used to apply provenance information to data, functions and pipelines and define bounded trust in each relative to community norms. While the two protocols can be used separately, together they can be used to automatically map the flow of trust evaluated relative to a given Provenance community.
+Here we introduce the Operad protocol which can be used to model end-to-end decisions as modular compute pipelines, reproduce their results if sufficient information is revealed, establish trust relative to norms determined by user communities, and allow subsequent users to reuse or extend these pipelines while maintaining verifiability. The protocol models compute pipelines in three layers as shown in figure \ref{layeredDataFig1}. The Asset layer consists of typed data assets. The Transformation layer consists of modular, directional relationships between data types. The correspondence between these layers is determined by the types of Assets on the lower level and the input and output types of Functions at the middle level. The Provenance layer consists of signed messages annotating assets and functions, allowing the flow of trust through a pipeline to be automatically mapped.
 
 \section{Previous Work}\label{PrevWork}
 
@@ -100,7 +100,7 @@ Tracing decisions end-to-end requires interoperating between work done by many i
 The Interplanetary File System (IPFS) is a protocol which allows users to address and deliver content based on the cryptographic hash of that content rather than its location on the network \cite{ipfs-paper}. This design pattern, namely using a content address as a URI rather than a location address, is essential for maintaining interoperability and will therefore be used as the basis for data addressing in this work.
 
 
-\subsection{Wiring Diagrams and Symmetric Monoidal Categories}\label{smc}
+\subsection{Wiring Diagrams, Symmetric Monoidal Categories, and Operads}\label{smc}
 
 Wiring diagrams are computational graphs in which data types are represented by lines and functions are represented by boxes. It has been shown that they can be interpreted rigorously as representations of symmetric monoidal categories (SMCs). \cite{Patterson_2021} 
 
@@ -109,21 +109,32 @@ A category is a mathematical structure containing objects as well as directional
 
 A SMC is a monoidal category with a braiding operation $Braid_{A,B} : A \otimes B \rightarrow B \otimes A$ that is symmetric: $Braid_{A,B} \zcmp Braid_{B,A}=Identity_{A \otimes B}$. If objects in a category are interpreted as data types and morphisms as functions mapping from one datatype to another, then the product in an SMC can be interpreted as an ordered set of two non-interacting data types. 
 
-Representing data pipelines in transform.storage as wiring diagrams is provides a formal grounding for computational diagrams that behave intuitively. The type structure makes it possible to define which functions are allowed to be composed with other functions, and by anchoring types using content addresses we are able to achieve interoperability between data storage and compute platforms without sacrificing verifiability. Furthermore, \textbf{composition and data provenance together allow a rigorous and automatic assessment of the flow of trust through a compute pipeline.}  However, while types in transform.storage should be interpreted strictly composition should not be. In practice, user functions may not be defined over their entire domain (therefore, using the example from above, $h : A \rightarrow C$ such that $h = f \zcmp g$ might not be defined for all values of type $A$) and may not be deterministic or even formally defined themselves. This means that while pipelines and their component functions are interpreted as morphisms within SMCs, compositionality may be broken when the computation is carried out. 
+An operad \cite{operadNlab, markl2008operads, may2006geometry, may1997definitions, loday2012algebraic} is a device with:
 
-\section{Transform.Storage Data Model}\label{transformtypes}
+\begin{itemize}
+\item Operations; in our case, the hierarchical set of morphisms in an SMC representing data transformations
+\item The ability to compose these operations; in our case, provided by the composition rule from the SMC
+\item A unit operation and corresponding unitality condition
+\item Adherence to an associativity condition
+\end{itemize}
+
+Representing data pipelines as wiring diagrams provides a formal grounding for computational diagrams that behave intuitively. The type structure makes it possible to define which functions are allowed to be composed with other functions, and by anchoring types using content addresses we are able to achieve interoperability between data storage and compute platforms without sacrificing verifiability. Furthermore, \textbf{composition and data provenance together allow a rigorous and automatic assessment of the flow of trust through a compute pipeline.}  However, while types in the Operad Protocol should be interpreted strictly composition should not be. In practice, user functions may not be defined over their entire domain (therefore, using the example from above, $h : A \rightarrow C$ such that $h = f \zcmp g$ might not be defined for all values of type $A$) and may not be deterministic or even formally defined themselves. This means that while pipelines and their component functions are interpreted as morphisms within SMCs, compositionality may be broken when the computation is carried out. 
+
+
+
+\section{Operad Protocol Data Model}\label{transformtypes}
 
 Here, we describe the type structure and data primitives of transform.storage as of the current protocol version.
 
 \subsection{Data}\label{data}
 
-Any data blob is a valid member of the data layer in transform.storage. It must be content addressed, allowing it to be verified regardless of the system it is stored in. While the protocol may interpret data blobs (as data conforming to a schema, a schema itself, a function, etc), the contents of data blobs are not legible to the protocol.
+Any data blob is a valid member of the data layer. It must be content addressed, allowing it to be verified regardless of the system it is stored in. While the protocol may interpret data blobs (as data conforming to a schema, a schema itself, a function, etc), the contents of data blobs are not legible to the protocol.
 
 \subsection{Type}\label{type}
 
-As in type theory, a type in Transform.Storage is a collection of terms sharing a defined set of properties. These may be primitive types such as $string$ and $integer$, or more complex constructed types such as that defined by a data schema. If term $a$ is of type $A$, we express this membership as $a:A$. In general, a given dataset may be a term of multiple types.
+A type in the Operad Protocol is a collection of terms sharing a defined set of properties. These may be primitive types such as $string$ and $integer$, or more complex constructed types such as that defined by a data schema. If term $a$ is of type $A$, we express this membership as $a:A$. In general, a given dataset may be a term of multiple types.
 
-Types are expressed in Transform.Storage as either (1) IPLD objects with the canonical attributes described in Table \ref{typeFields}, or (2) logically equivalently, the CIDs of these IPLD objects. Individual implementations may add optional fields.
+Types are expressed as either (1) IPLD objects with the canonical attributes described in Table \ref{typeFields}, or (2) logically equivalently, the CIDs of these IPLD objects. Individual implementations may add optional fields.
 
 \begin{center}
 \begin{tabular}{ || p{5cm} | p{9cm} ||}
@@ -138,9 +149,9 @@ Types are expressed in Transform.Storage as either (1) IPLD objects with the can
 \hline
 \makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \textit{Type.creator is} \\ \textit{non-null})} & \makecell[l]{Value from the Identifier Table (section \ref{transformID}) describing \\ the type of identifier associated with the creator \\ field.} \\
 \hline
-\makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
+\makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``Operad Protocol"} \\
 \hline
-\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which this type is pursuant \\ to, such as  ``2.0.0"} \\
+\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which this type is pursuant \\ to, such as  ``1.0.0"} \\
 \hline
 \makecell[l]{\textbf{name} \\ \textit{(string, optional)}} & \makecell[l]{Short human-readable label} \\
 \hline
@@ -149,19 +160,19 @@ Types are expressed in Transform.Storage as either (1) IPLD objects with the can
 \end{tabular}
 \end{center}
  
-\captionof{table}[Type Fields]{Definitions of the canonical fields describing a Transform.Storage type.}
+\captionof{table}[Type Fields]{Definitions of the canonical fields describing a type.}
 \label{typeFields}
 \setlength{\parindent}{.5 cm}
 \vspace{.25 cm}
 
-The value of $type\_checking$ is cross-referenced with the type checking table maintained at the Transform.Storage spec \cite{transformSpec}, to determine the function $f_{check}$ with the type signature $f_{check}$: $(Type \otimes Data) \rightarrow \{result: Boolean, code: Str\}$. Here, $result$ is true if the input $Data$ is a term of the input $Type$ and false otherwise. The output key $code$ contains an error code, or $null$.
+The value of $type\_checking$ is cross-referenced with the type checking table maintained at the Operad Protocol spec, to determine the function $f_{check}$ with the type signature $f_{check}$: $(Type \otimes Data) \rightarrow \{result: Boolean, code: Str\}$. Here, $result$ is true if the input $Data$ is a term of the input $Type$ and false otherwise. The output key $code$ contains an error code, or $null$.
 
 Membership in a type is defined by the fields $cid$, and $type\_checking$. A simple type is defined by the data in $cid$ and the function determined in $type\_checking$ (Figure \ref{typesAssets_fig}a). Alternatively, a series type is represented as an array of the CIDs of types (Figure \ref{typesAssets_fig}b). 
 
 
 \begin{center}
 \includegraphics[width=1\columnwidth]{fig_types_assets_20230802}
-\captionof{figure}[Types and assets]{Block diagram showing types and assets in Transform.Storage. Blocks represent IPLD objects, (logically equivalently) CIDs of IPLD objects, or CIDs of data blobs and arrow labels represent keys of objects. Brackets represent IPLD arrays. (a) This simple type is defined by a schema which is referenced in its Type.cid field. (b) The series type $A \otimes B$ is represented as an array of the CIDs of types $A$ and $B$, and is logically equivalent to the CID of that array. (c) An asset $a : A$. (d) A series asset, showing $[a, b] : A \otimes B$.}
+\captionof{figure}[Types and assets]{Block diagram showing types and assets in the Operad Protocol. Blocks represent IPLD objects, (logically equivalently) CIDs of IPLD objects, or CIDs of data blobs and arrow labels represent keys of objects. Brackets represent IPLD arrays. (a) This simple type is defined by a schema which is referenced in its Type.cid field. (b) The series type $A \otimes B$ is represented as an array of the CIDs of types $A$ and $B$, and is logically equivalent to the CID of that array. (c) An asset $a : A$. (d) A series asset, showing $[a, b] : A \otimes B$.}
 \label{typesAssets_fig}
 \end{center}
 
@@ -189,7 +200,7 @@ The CID of an array of types is logically equivalent to that array, $CID_{A \oti
 
 Additionally, $True$ and $null$ are simple types. For every data blob $d$, $d : True$. Type $null$ has no terms.
 
-Every implementation of transform.storage must include the function isTerm (Algorithm \ref{algo_isTerm}), which determines whether a data blob is a term of a given type.
+Every implementation of the Operad Protocol must include the function isTerm (Algorithm \ref{algo_isTerm}), which determines whether a data blob is a term of a given type.
 
 \subsection{Asset}\label{asset}
 
@@ -209,7 +220,7 @@ Pseudocode for $isValidAsset$, a required function which determines whether or n
 \hline
 \makecell[l]{\textbf{payload} \\ \textit{(CID, array, or} \textit{object)}} & \makecell[l]{The CID of the data referenced by this asset, an \\ array of data CIDs, or the raw data represented as an \\ object or array.}\\
 \hline
-\makecell[l]{\textbf{template} \\ \textit{(type)}} & \makecell[l]{The transform.storage type referenced by this asset.}\\
+\makecell[l]{\textbf{template} \\ \textit{(type)}} & \makecell[l]{The type referenced by this asset.}\\
 \hline
 \makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the creator of this asset} \\
 \hline	
@@ -225,9 +236,9 @@ Pseudocode for $isValidAsset$, a required function which determines whether or n
 \hline
 \makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \textit{Type.creator} \\ \textit{is non-null})} & \makecell[l]{Value from the Identifier Table (section \ref{transformID}) describing \\ the type of identifier associated with the creator \\ field.} \\
 \hline
-\makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
+\makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``Operad Protocol"} \\
 \hline
-\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which this type is pursuant \\ to, such as  ``2.0.0"} \\
+\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which this type is pursuant \\ to, such as  ``1.0.0"} \\
 \hline
 \makecell[l]{\textbf{name} \\ \textit{(string, optional)}} & \makecell[l]{Short human-readable label} \\
 \hline
@@ -235,20 +246,20 @@ Pseudocode for $isValidAsset$, a required function which determines whether or n
 \hline  
 \end{tabular}
 \end{center}
-\captionof{table}[Type Fields]{Definitions of the canonical fields describing a Transform.Storage asset.}
+\captionof{table}[Type Fields]{Definitions of the canonical fields describing an asset.}
 \label{assetFields}
 \setlength{\parindent}{.5 cm}
 \vspace{.25 cm}
 
 \begin{center}
 \includegraphics[width=1\columnwidth]{fig_functions}
-\captionof{figure}[Functions]{Block diagram showing functions in Transform.Storage. (a) A function consists of input and output types, as well as a function definition which accepts data conforming to the given input types and returns data conforming to the given output types. (b) A function accepting the series type $A \otimes B$, in which this input type is represented in normal form. (c) A function with the same series input as $b$, where this input is represented in non-normal form.}
+\captionof{figure}[Functions]{Block diagram showing functions in the Operad Protocol. (a) A function consists of input and output types, as well as a function definition which accepts data conforming to the given input types and returns data conforming to the given output types. (b) A function accepting the series type $A \otimes B$, in which this input type is represented in normal form. (c) A function with the same series input as $b$, where this input is represented in non-normal form.}
 \label{functions_fig}
 \end{center}
 \setlength{\parindent}{.5 cm}
 
 \subsection{Function}\label{function}
-A function is an operation mapping from an input type to an output type. Functions themselves have types. If $f$ is a function mapping from type $A$ to type $B$, then $f : A \rightarrow B$ (``$f$ is of type $A$ to $B$"). A function in Transform.Storage contains information about the content addressed input and output types of that function, the function definition, and the execution environment in which the function was tested. These fields are shown in table \ref{functionFields}.
+A function is an operation mapping from an input type to an output type. Functions themselves have types. If $f$ is a function mapping from type $A$ to type $B$, then $f : A \rightarrow B$ (``$f$ is of type $A$ to $B$"). A function contains information about the content addressed input and output types of that function, the function definition, and the execution environment in which the function was tested. These fields are shown in table \ref{functionFields}.
 Values for $Function.execution$ and corresponding values for $Function.fn$ are given in the Execution Table (Table \ref{execTable}). The protocol includes a set of built-in functions, which correspond to fundamental operations on a computational graph, as well as the ability to externally define functions.
 
 The height of a function is defined as $Max( Function.in.height, Function.out.height )$.
@@ -277,11 +288,11 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 \hline
 \makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the creator of this type} \\
 \hline
-\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if Type.creator} \\ \textit{is non-null})} & \makecell[l]{Value from the Identifier Table (section \ref{transformID}) describing \\ the type of identifier associated with the creator \\ field}\\
+\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if Type.creator} \\ \textit{is non-null})} & \makecell[l]{Value from the Identifier Table describing the type \\ of identifier associated with the creator field}\\
 \hline
-\makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``transform.storage"} \\
+\makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``Operad Protocol"} \\
 \hline
-\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which this type is pursuant \\ to, such as  ``2.0.0"} \\
+\makecell[l]{\textbf{protocol\_version} \\ \textit{(string)}} & \makecell[l]{The version of the protocol which this type is pursuant \\ to, such as  ``1.0.0"} \\
 \hline			
 \makecell[l]{\textbf{name} \\ \textit{(string, optional)}} & \makecell[l]{Short human-readable label} \\
 \hline
@@ -346,15 +357,16 @@ The type structure outlined here follows the principle of non-interference: \tex
 
 \section{Functionality}\label{pseudocode}
 
-This section contains pseudocode for functionality in implementations of transform.storage.
+This section contains pseudocode for functionality in implementations of the Operad Protocol.
 
-\subsection{Transform.Storage Data Model Required Functions}\label{dataModelFuncs}
+\subsection{Operad Protocol Data Model Required Functions}\label{dataModelFuncs}
 
-Functionality required in any implementation of transform.storage. While these functions respect the logical equivalence between data structures and the CIDs of these data structures, they interoperate between the two on a `best effort' basis. Some implementations of transform.storage may not have access to a live IPFS node (example: if the implementation itself is on-chain), they may be offline, or the required CID may not be retrievable.
+Functionality required in any implementation of the Operad Protocol. While these functions respect the logical equivalence between data structures and the CIDs of these data structures, they interoperate between the two on a `best effort' basis. Some implementations may not have access to a live IPFS node (example: if the implementation itself is on-chain), they may be offline, or the required CID may not be retrievable.
 
 In addition to the result, functions return an error code and documentation of the implementation version of the function. Functions below are labeled with the protocol version described.
 
-\subsubsection{isSimpleTypeNormalForm 2.0.0}\label{isSimpleTypeNormalForm_code}
+\newpage
+\subsubsection{isSimpleTypeNormalForm 1.0.0}\label{isSimpleTypeNormalForm_code}
 
 Accepts a type. Result is a boolean which is true if the input argument is a simple type (ie. not a series type) and is in the normal form.
 
@@ -363,7 +375,7 @@ Protocol implementation maintains $isSimpleTypeNormalForm.version$ : $Str$, and 
 \vspace{.25 cm}
 \begin{algorithm}[H]
 \setcounter{AlgoLine}{0}
-\caption{\textbf{isSimpleTypeNormalForm : \\ $Type \rightarrow \{result: Boolean, code: Str, protocol: ``transform.storage", protocol\_version : Str\}$}}
+\caption{\textbf{isSimpleTypeNormalForm : \\ $Type \rightarrow \{result: Boolean, code: Str, protocol: ``Operad Protocol", protocol\_version : Str\}$}}
 \label{algo_isSimpleTypeNormalForm}
 \SetKwInOut{Input}{input}
 \SetKwBlock{Begin}{Begin}{}
@@ -382,12 +394,12 @@ $suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : isSi
 }
 \uElseIf{T is an object}
 {
-	\uIf{T does not have a key $T.protocol$ with value ``Transform.Storage"}
-		{\Return \{result: $False$, code: ``Type T does not use the Transform.Storage protocol", ...$suffix$\}}
+	\uIf{T does not have a key $T.protocol$ with value ``Operad Protocol"}
+		{\Return \{result: $False$, code: ``Type T does not use the Operad Protocol", ...$suffix$\}}
 	\uElseIf{T does not have a key $T.protocol\_version$}
-		{\Return \{result: $False$, code: ``Type T does not list a Transform.Storage protocol version", ...$suffix$\}}
+		{\Return \{result: $False$, code: ``Type T does not list an Operad Protocol version", ...$suffix$\}}
 	\uElseIf{$T.protocol\_version$ is not supported}
-		{\Return \{result: $False$, code: ``Type T uses Transform.Storage protocol version " + $T.protocol\_version$ + `` not supported by this implementation", ...$suffix$\}}
+		{\Return \{result: $False$, code: ``Type T uses Operad Protocol version " + $T.protocol\_version$ + `` not supported by this implementation", ...$suffix$\}}
 	\uElseIf{T does not have all the canonical fields for the given protocol version (see table \ref{typeFields})}
 		{\Return \{result: $False$, code: `T does not contain required Type fields for transform.storage version " + $T.protocol\_version$, ...$suffix$\}}
 	\tcc{If T is an object with the required fields of a supported transform.storage version, then it is a valid simple type in the normal form.}
@@ -398,8 +410,7 @@ $suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : isSi
 }
 \end{algorithm}
 
-
-\subsubsection{normalizeType 2.0.0}\label{normalizeType_code}
+\subsubsection{normalizeType 1.0.0}\label{normalizeType_code}
 
 Accepts a type. Returns the normal form of that type, a boolean indicating whether normalization was successful, and an error code. This function also serves to determine whether an input argument is a valid type.
 
@@ -408,14 +419,14 @@ Protocol implementation maintains $normalizeType.version$ : $Str$, and an array 
 \vspace{.25 cm}
 \begin{algorithm}[H]
 \setcounter{AlgoLine}{0}
-\caption{\textbf{normalizeType : \\ $Type \rightarrow \{result: Type, success: Boolean, code: Str, protocol: ``transform.storage", protocol\_version : Str\}$}}
+\caption{\textbf{normalizeType : \\ $Type \rightarrow \{result: Type, success: Boolean, code: Str, protocol: ``Operad Protocol", protocol\_version : Str\}$}}
 \label{algo_isSimpleTypeNormalForm}
 \SetKwInOut{Input}{input}
 \SetKwBlock{Begin}{Begin}{}
 \Input{Type $T$}
 \label{alg:quad}
 \SetAlgoLined
-$suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : normalizeType.version\} \\
+$suffix$ $\leftarrow$ \{protocol: ``Operad Protocol", protocol\_version : normalizeType.version\} \\
 alreadySimpleNormal $\leftarrow$ isSimpleTypeNormalForm(T)\\
 \uIf{alreadySimpleNormal.protocol\_version not supported}{
 				\Return \{result: null, success: $False$, code: ``isSimpleTypeNormalForm version" + alreadyNormal.protocol\_version + `` not supported by normalizeType version " + ``normalizeType.version", ...$suffix$\}
@@ -462,7 +473,7 @@ alreadySimpleNormal $\leftarrow$ isSimpleTypeNormalForm(T)\\
 \end{algorithm}
 
 
-\subsubsection{isTerm 2.0.0}\label{isTerm_code}
+\subsubsection{isTerm 1.0.0}\label{isTerm_code}
 
 Accepts a type in its normal form, and a data blob. Returns a boolean which is true if the protocol implementation could determine that data is a valid term of the given type, and false otherwise; and an error code.
 
@@ -471,14 +482,14 @@ Protocol implementation maintains $isTerm.version$ : $Str$, and array of support
 \vspace{.25 cm}
 \begin{algorithm}[H]
 \setcounter{AlgoLine}{0}
-\caption{\textbf{isTerm : \\ $(Type \otimes Data) \rightarrow \{result: Boolean, code: Str, protocol: ``transform.storage", protocol\_version : Str\}$}}
+\caption{\textbf{isTerm : \\ $(Type \otimes Data) \rightarrow \{result: Boolean, code: Str, protocol: ``Operad Protocol", protocol\_version : Str\}$}}
 \label{algo_isTerm}
 \SetKwInOut{Input}{input}
 \SetKwBlock{Begin}{Begin}{}
 \Input{Type $T$, Data $D$}
 \label{alg:quad}
 \SetAlgoLined
-$suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : isTerm.version\} \\
+$suffix$ $\leftarrow$ \{protocol: ``Operad Protocol", protocol\_version : isTerm.version\} \\
 \tcc{Check for special cases $True$ and $False$}
 \uIf{T is $True$} {
 	\tcc{Every data blob D is a valid term of type True}
@@ -493,8 +504,8 @@ $suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : isTe
 \uElseIf{T is an object}
 	{
 		\tcc{T must be a simple type}
-		\If{T.protocol is not ``Transform.Storage"}{\Return \{result: $False$, code: ``Type T does not use the Transform.Storage protocol", ...$suffix$\}}
-		\If{T.protocol\_version is not supported}{\Return \{result: $False$, code: ``Type T uses Transform.Storage protocol version " + $T.protocol\_version$ + `` not supported by this implementation", ...$suffix$\}}
+		\If{T.protocol is not ``Transform.Storage"}{\Return \{result: $False$, code: ``Type T does not use the Operad Protocol protocol", ...$suffix$\}}
+		\If{T.protocol\_version is not supported}{\Return \{result: $False$, code: ``Type T uses Operad Protocol protocol version " + $T.protocol\_version$ + `` not supported by this implementation", ...$suffix$\}}
 		Using the type checking table from the version of the protocol indicated by $T.protocol\_version$, look up $T.type\_checking$ to determine the type checking function $f_{check}$\\
     		\Return \{...$f_{check}(T, D)$, ...$suffix$\}
 	}
@@ -516,13 +527,13 @@ $suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : isTe
 \Else
 {
 	\tcc{T is not in the correct format}
-	\Return \{result: $False$, code: ``T is not the normal form of a transform.storage type" , ...$suffix$\}\
+	\Return \{result: $False$, code: ``T is not the normal form of a Operad Protocol type" , ...$suffix$\}\
 }
 \end{algorithm}
 
 
 
-\subsubsection{isValidAsset 2.0.0}\label{isValidAsset_code}
+\subsubsection{isValidAsset 1.0.0}\label{isValidAsset_code}
 
 Accepts an asset. Result is true if the protocol implementation could determine that the asset is valid, and false otherwise. Retrieves asset payload CIDs non-recursively, as discussed in section \ref{asset}.
 
@@ -531,13 +542,13 @@ Protocol implementation maintains $isValidAsset.version$ : $Str$, and arrays of 
 \vspace{.25 cm}
 \begin{algorithm}[H]
 \setcounter{AlgoLine}{0}
-\caption{\textbf{isValidAsset : \\ $Asset \rightarrow \{result: Boolean, code: Str, protocol: ``transform.storage", protocol\_version : Str\}$}}
+\caption{\textbf{isValidAsset : \\ $Asset \rightarrow \{result: Boolean, code: Str, protocol: ``Operad Protocol", protocol\_version : Str\}$}}
 \label{algo_isValidAsset}
 \SetKwInOut{Input}{input}
 \SetKwBlock{Begin}{Begin}{}
 \Input{Asset $A$}
 \SetAlgoLined
-$suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : $isValidAsset.version$\} \\
+$suffix$ $\leftarrow$ \{protocol: ``Operad Protocol", protocol\_version : $isValidAsset.version$\} \\
 \tcc{If A is the CID of an Asset and this implementation has access to an IPFS node, expand the CID and run recursively.}
 \uIf{A is a CID}{
 	\uIf{Have IPFS node}{
@@ -551,14 +562,14 @@ $suffix$ $\leftarrow$ \{protocol: ``transform.storage", protocol\_version : $isV
 \tcc{If A is an object, evaluate it.}
 \uIf{A is an object}
 {
-	\uIf{A does not have a key $A.protocol$ with value ``Transform.Storage"}
-		{\Return \{result: $False$, code: ``Asset A does not use the Transform.Storage protocol", ...$suffix$\}}
+	\uIf{A does not have a key $A.protocol$ with value ``Operad Protocol"}
+		{\Return \{result: $False$, code: ``Asset A does not use the Operad Protocol protocol", ...$suffix$\}}
 	\uElseIf{A does not have a key $A.protocol\_version$}
-		{\Return \{result: $False$, code: ``Asset A does not list a Transform.Storage protocol version", ...$suffix$\}}
+		{\Return \{result: $False$, code: ``Asset A does not list a Operad Protocol protocol version", ...$suffix$\}}
 	\uElseIf{$A.protocol\_version$ is not supported}
-		{\Return \{result: $False$, code: ``Asset A uses Transform.Storage protocol version " + $A.protocol\_version$ + `` not supported by this implementation", ...$suffix$\}}
+		{\Return \{result: $False$, code: ``Asset A uses Operad Protocol protocol version " + $A.protocol\_version$ + `` not supported by this implementation", ...$suffix$\}}
 	\uElseIf{A does not have all the canonical fields for the given protocol version (see table \ref{assetFields})}
-		{\Return \{result: $False$, code: ``A does not contain required Asset fields for transform.storage version " + $A.protocol\_version$, ...$suffix$\}}
+		{\Return \{result: $False$, code: ``A does not contain required Asset fields for Operad Protocol version " + $A.protocol\_version$, ...$suffix$\}}
 		}
 \uElse{
 		\tcc{A is an object with the correct fields, so evaluate whether A.payload is a term of A.template.}

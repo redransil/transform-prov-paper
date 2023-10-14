@@ -32,15 +32,15 @@
 \newlabel{layeredDataFig1}{{1}{2}{Three layers of a compute pipeline}{figure.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}IPFS}{2}{subsection.2.2}\protected@file@percent }
 \newlabel{IPFS}{{2.2}{2}{IPFS}{subsection.2.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Wiring Diagrams and Symmetric Monoidal Categories}{3}{subsection.2.3}\protected@file@percent }
-\newlabel{smc}{{2.3}{3}{Wiring Diagrams and Symmetric Monoidal Categories}{subsection.2.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Transform.Storage Data Model}{3}{section.3}\protected@file@percent }
-\newlabel{transformtypes}{{3}{3}{Transform.Storage Data Model}{section.3}{}}
+\citation{operadNlab,markl2008operads,may2006geometry,may1997definitions,loday2012algebraic}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Wiring Diagrams, Symmetric Monoidal Categories, and Operads}{3}{subsection.2.3}\protected@file@percent }
+\newlabel{smc}{{2.3}{3}{Wiring Diagrams, Symmetric Monoidal Categories, and Operads}{subsection.2.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Operad Protocol Data Model}{3}{section.3}\protected@file@percent }
+\newlabel{transformtypes}{{3}{3}{Operad Protocol Data Model}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Data}{3}{subsection.3.1}\protected@file@percent }
 \newlabel{data}{{3.1}{3}{Data}{subsection.3.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Type}{3}{subsection.3.2}\protected@file@percent }
 \newlabel{type}{{3.2}{3}{Type}{subsection.3.2}{}}
-\citation{transformSpec}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Type Fields}}{4}{table.1}\protected@file@percent }
 \newlabel{typeFields}{{1}{4}{Type Fields}{table.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Types and assets}}{4}{figure.2}\protected@file@percent }
@@ -61,32 +61,36 @@
 \newlabel{nonInterference}{{3.5}{9}{Non-Interference}{subsection.3.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Functionality}{9}{section.4}\protected@file@percent }
 \newlabel{pseudocode}{{4}{9}{Functionality}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Transform.Storage Data Model Required Functions}{9}{subsection.4.1}\protected@file@percent }
-\newlabel{dataModelFuncs}{{4.1}{9}{Transform.Storage Data Model Required Functions}{subsection.4.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}isSimpleTypeNormalForm 2.0.0}{9}{subsubsection.4.1.1}\protected@file@percent }
-\newlabel{isSimpleTypeNormalForm_code}{{4.1.1}{9}{isSimpleTypeNormalForm 2.0.0}{subsubsection.4.1.1}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces \textbf  {isSimpleTypeNormalForm : \\ $Type \rightarrow \{result: Boolean, code: Str, protocol: ``transform.storage", protocol\unhbox \voidb@x \vbox {\hrule width0.4em}version : Str\}$}\relax }}{10}{algocf.1}\protected@file@percent }
-\newlabel{algo_isSimpleTypeNormalForm}{{1}{10}{isSimpleTypeNormalForm 2.0.0}{algocf.1}{}}
-\newlabel{alg:quad}{{1}{10}{isSimpleTypeNormalForm 2.0.0}{algocf.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}normalizeType 2.0.0}{10}{subsubsection.4.1.2}\protected@file@percent }
-\newlabel{normalizeType_code}{{4.1.2}{10}{normalizeType 2.0.0}{subsubsection.4.1.2}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces \textbf  {normalizeType : \\ $Type \rightarrow \{result: Type, success: Boolean, code: Str, protocol: ``transform.storage", protocol\unhbox \voidb@x \vbox {\hrule width0.4em}version : Str\}$}\relax }}{11}{algocf.2}\protected@file@percent }
-\newlabel{algo_isSimpleTypeNormalForm}{{2}{11}{normalizeType 2.0.0}{algocf.2}{}}
-\newlabel{alg:quad}{{2}{11}{normalizeType 2.0.0}{algocf.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}isTerm 2.0.0}{12}{subsubsection.4.1.3}\protected@file@percent }
-\newlabel{isTerm_code}{{4.1.3}{12}{isTerm 2.0.0}{subsubsection.4.1.3}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces \textbf  {isTerm : \\ $(Type \otimes Data) \rightarrow \{result: Boolean, code: Str, protocol: ``transform.storage", protocol\unhbox \voidb@x \vbox {\hrule width0.4em}version : Str\}$}\relax }}{12}{algocf.3}\protected@file@percent }
-\newlabel{algo_isTerm}{{3}{12}{isTerm 2.0.0}{algocf.3}{}}
-\newlabel{alg:quad}{{3}{12}{isTerm 2.0.0}{algocf.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.4}isValidAsset 2.0.0}{13}{subsubsection.4.1.4}\protected@file@percent }
-\newlabel{isValidAsset_code}{{4.1.4}{13}{isValidAsset 2.0.0}{subsubsection.4.1.4}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {4}{\ignorespaces \textbf  {isValidAsset : \\ $Asset \rightarrow \{result: Boolean, code: Str, protocol: ``transform.storage", protocol\unhbox \voidb@x \vbox {\hrule width0.4em}version : Str\}$}\relax }}{13}{algocf.4}\protected@file@percent }
-\newlabel{algo_isValidAsset}{{4}{13}{isValidAsset 2.0.0}{algocf.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Operad Protocol Data Model Required Functions}{9}{subsection.4.1}\protected@file@percent }
+\newlabel{dataModelFuncs}{{4.1}{9}{Operad Protocol Data Model Required Functions}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}isSimpleTypeNormalForm 1.0.0}{10}{subsubsection.4.1.1}\protected@file@percent }
+\newlabel{isSimpleTypeNormalForm_code}{{4.1.1}{10}{isSimpleTypeNormalForm 1.0.0}{subsubsection.4.1.1}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces \textbf  {isSimpleTypeNormalForm : \\ $Type \rightarrow \{result: Boolean, code: Str, protocol: ``Operad Protocol", protocol\unhbox \voidb@x \vbox {\hrule width0.4em}version : Str\}$}\relax }}{10}{algocf.1}\protected@file@percent }
+\newlabel{algo_isSimpleTypeNormalForm}{{1}{10}{isSimpleTypeNormalForm 1.0.0}{algocf.1}{}}
+\newlabel{alg:quad}{{1}{10}{isSimpleTypeNormalForm 1.0.0}{algocf.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}normalizeType 1.0.0}{10}{subsubsection.4.1.2}\protected@file@percent }
+\newlabel{normalizeType_code}{{4.1.2}{10}{normalizeType 1.0.0}{subsubsection.4.1.2}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces \textbf  {normalizeType : \\ $Type \rightarrow \{result: Type, success: Boolean, code: Str, protocol: ``Operad Protocol", protocol\unhbox \voidb@x \vbox {\hrule width0.4em}version : Str\}$}\relax }}{11}{algocf.2}\protected@file@percent }
+\newlabel{algo_isSimpleTypeNormalForm}{{2}{11}{normalizeType 1.0.0}{algocf.2}{}}
+\newlabel{alg:quad}{{2}{11}{normalizeType 1.0.0}{algocf.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}isTerm 1.0.0}{12}{subsubsection.4.1.3}\protected@file@percent }
+\newlabel{isTerm_code}{{4.1.3}{12}{isTerm 1.0.0}{subsubsection.4.1.3}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces \textbf  {isTerm : \\ $(Type \otimes Data) \rightarrow \{result: Boolean, code: Str, protocol: ``Operad Protocol", protocol\unhbox \voidb@x \vbox {\hrule width0.4em}version : Str\}$}\relax }}{12}{algocf.3}\protected@file@percent }
+\newlabel{algo_isTerm}{{3}{12}{isTerm 1.0.0}{algocf.3}{}}
+\newlabel{alg:quad}{{3}{12}{isTerm 1.0.0}{algocf.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.4}isValidAsset 1.0.0}{13}{subsubsection.4.1.4}\protected@file@percent }
+\newlabel{isValidAsset_code}{{4.1.4}{13}{isValidAsset 1.0.0}{subsubsection.4.1.4}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {4}{\ignorespaces \textbf  {isValidAsset : \\ $Asset \rightarrow \{result: Boolean, code: Str, protocol: ``Operad Protocol", protocol\unhbox \voidb@x \vbox {\hrule width0.4em}version : Str\}$}\relax }}{13}{algocf.4}\protected@file@percent }
+\newlabel{algo_isValidAsset}{{4}{13}{isValidAsset 1.0.0}{algocf.4}{}}
 \bibdata{transform-prov-paper}
-\bibcite{transformSpec}{1}
+\bibcite{operadNlab}{1}
 \bibcite{ipfs-paper}{2}
-\bibcite{Patterson_2021}{3}
-\bibcite{w3cDID}{4}
+\bibcite{loday2012algebraic}{3}
+\bibcite{markl2008operads}{4}
+\bibcite{may1997definitions}{5}
+\bibcite{may2006geometry}{6}
+\bibcite{Patterson_2021}{7}
+\bibcite{w3cDID}{8}
 \bibstyle{plain}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Simple compute pipeline}}{15}{figure.4}\protected@file@percent }
 \newlabel{simplePipeline}{{4}{15}{Simple compute pipeline}{figure.4}{}}
