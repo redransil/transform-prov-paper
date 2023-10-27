@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  14 OCT 2023 15:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.22)  26 OCT 2023 20:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1462,12 +1462,9 @@ LaTeX Font Info:    Trying to load font information for U+lasy on input line 10
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-Overfull \hbox (7.50311pt too wide) in paragraph at lines 150--150
+Overfull \hbox (5.64787pt too wide) in paragraph at lines 150--151
 |[][]
  []
-
-
-LaTeX Warning: Reference `transformID' on page 3 undefined on input line 150.
 
 [3]
 
@@ -1630,14 +1627,8 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-
-Package rerunfilecheck Warning: File `transform-prov-paper.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `transform-prov-paper.out':
-(rerunfilecheck)             Before: B28C49612347D89774DFA6E774F83130;2720
-(rerunfilecheck)             After:  00B5C7066C0F459B21D77A7DA2B3AE07;2720.
+Package rerunfilecheck Info: File `transform-prov-paper.out' has not changed.
+(rerunfilecheck)             Checksum: 00B5C7066C0F459B21D77A7DA2B3AE07;2720.
  ) 
 Here is how much of TeX's memory you used:
  16482 strings out of 478994
@@ -1663,7 +1654,7 @@ e/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/
 2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2
 021/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/202
 1/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on transform-prov-paper.pdf (15 pages, 749604 bytes).
+Output written on transform-prov-paper.pdf (15 pages, 749610 bytes).
 PDF statistics:
  460 PDF objects out of 1000 (max. 8388607)
  396 compressed objects within 4 object streams

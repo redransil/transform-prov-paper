@@ -128,7 +128,7 @@ Here, we describe the type structure and data primitives of transform.storage as
 
 \subsection{Data}\label{data}
 
-Any data blob is a valid member of the data layer. It must be content addressed, allowing it to be verified regardless of the system it is stored in. While the protocol may interpret data blobs (as data conforming to a schema, a schema itself, a function, etc), the contents of data blobs are not legible to the protocol.
+Any data blob is a valid member of the data layer. It must be content addressed, allowing it to be verified regardless of the system it is stored in. While the protocol may interpret data blobs (as data conforming to a schema, a schema itself, a function, etc), the contents of data blobs are not legible to the protocol. IPLD objects and arrays are also valid data.
 
 \subsection{Type}\label{type}
 
@@ -147,7 +147,7 @@ Types are expressed as either (1) IPLD objects with the canonical attributes des
 \hline
 \makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the creator of this type} \\
 \hline
-\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \textit{Type.creator is} \\ \textit{non-null})} & \makecell[l]{Value from the Identifier Table (section \ref{transformID}) describing \\ the type of identifier associated with the creator \\ field.} \\
+\makecell[l]{\textbf{creator\_auth\_method} \\ \textit{(string)}} & \makecell[l]{Authentication Method value from the Identifier Table \\ describing how to interpret the identifier associated with \\ the Type.creator field. Required if Type.creator is non-null.} \\
 \hline
 \makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``Operad Protocol"} \\
 \hline
@@ -218,7 +218,7 @@ Pseudocode for $isValidAsset$, a required function which determines whether or n
 \hline			
 \multicolumn{2}{|| l ||}{\textbf{Asset Fields}} \\
 \hline
-\makecell[l]{\textbf{payload} \\ \textit{(CID, array, or} \textit{object)}} & \makecell[l]{The CID of the data referenced by this asset, an \\ array of data CIDs, or the raw data represented as an \\ object or array.}\\
+\makecell[l]{\textbf{payload} \\ \textit{(CID, array, or} \textit{object)}} & \makecell[l]{Data: either a CID of the data referenced by this asset, or \\ IPLD data represented as an object or array.}\\
 \hline
 \makecell[l]{\textbf{template} \\ \textit{(type)}} & \makecell[l]{The type referenced by this asset.}\\
 \hline
@@ -345,7 +345,7 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 \hline
 \end{tabular}
 \end{center}
-\captionof{table}[Execution Table]{Execution Table. The function definition (Table \ref{functionFields} includes $fn$ and $execution$ variables defining functions and how they are interpreted. In the case of functions built in to Transform.Storage such as $identity$ or $introduce$, the $execution$ variable determines the identity of the function parameterized by $fn$. In the case of an externally defined function, $fn$ is a pointer to the function and $execution$ parameterizes the interpretation of this function.}
+\captionof{table}[Execution Table]{Execution Table. The function definition (Table \ref{functionFields}) includes $fn$ and $execution$ variables defining functions and how they are interpreted. In the case of functions built in to Transform.Storage such as $identity$ or $introduce$, the $execution$ variable determines the identity of the function parameterized by $fn$. In the case of an externally defined function, $fn$ is a pointer to the function and $execution$ parameterizes the interpretation of this function.}
 \label{execTable}
 \setlength{\parindent}{.5 cm}
 
