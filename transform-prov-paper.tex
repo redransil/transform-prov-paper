@@ -234,7 +234,7 @@ Pseudocode for $isValidAsset$, a required function which determines whether or n
 \hline			
 \multicolumn{2}{|| l ||}{\textbf{Asset Fields cont'd}} \\
 \hline
-\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if} \textit{Type.creator} \\ \textit{is non-null})} & \makecell[l]{Value from the Identifier Table (section \ref{transformID}) describing \\ the type of identifier associated with the creator \\ field.} \\
+\makecell[l]{\textbf{creator\_auth\_method} \\ \textit{(string, required if} \textit{Type.creator} \\ \textit{is non-null})} & \makecell[l]{Value from the Identifier Table (section \ref{transformID}) describing \\ the type of identifier associated with the creator \\ field.} \\
 \hline
 \makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``Operad Protocol"} \\
 \hline
@@ -284,11 +284,11 @@ The height of a function is defined as $Max( Function.in.height, Function.out.he
 \hline
 \makecell[l]{\textbf{environment} \\ \textit{(string)}} & \makecell[l]{Compute environment where this function was tested, \\ chosen from the environment table} \\
 \hline
-\makecell[l]{\textbf{env\_params} \\ \textit{(string)}} & \makecell[l]{Parameters passed to the environment. Format depends \\ on the value of environment.} \\
+\makecell[l]{\textbf{env\_params} \\ \textit{(IPLD Object)}} & \makecell[l]{Parameters passed to the environment. Schema depends \\ on the value of environment.} \\
 \hline
 \makecell[l]{\textbf{creator} \\ \textit{(string)}} & \makecell[l]{The public identifier of the creator of this type} \\
 \hline
-\makecell[l]{\textbf{creator\_id\_format} \\ \textit{(string, required if Type.creator} \\ \textit{is non-null})} & \makecell[l]{Value from the Identifier Table describing the type \\ of identifier associated with the creator field}\\
+\makecell[l]{\textbf{creator\_auth\_method} \\ \textit{(string, required if Type.creator} \\ \textit{is non-null})} & \makecell[l]{Value from the Identifier Table describing the type \\ of identifier associated with the creator field}\\
 \hline
 \makecell[l]{\textbf{protocol\_name} \\ \textit{(string)}} & \makecell[l]{Must be ``Operad Protocol"} \\
 \hline
